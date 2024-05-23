@@ -1,6 +1,4 @@
-<?php
-
-defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth_controller extends Core_controller
 {
@@ -8,6 +6,7 @@ class Auth_controller extends Core_controller
     {
         parent::__construct();
         $this->load->model('Users_model');
+        $this->load->model('Email_model');
     }
 
     /***
@@ -140,4 +139,102 @@ class Auth_controller extends Core_controller
 
         }
     }
+
+    /**
+     * Vista de recuperar la contraseña
+     */
+    public function forgot_password(){
+
+        $data['title'] = "Recuperar la contraseña";
+		$data['application_name'] = $this->settings->application_name;
+		$data['description'] = $this->settings->site_description;
+		$data['keywords'] = $this->settings->keywords;
+        if ($this->session->userdata('login')) {
+            redirect(base_url() . 'admin/dashboard');
+        } else {
+            $this->load->view("admin/auth/forgot_password", $data);
+        }
+    }
+     /**
+     * metodo POST para recuperar la contraseña.
+     */
+    public function forgot_password_post(){
+        //comprobar si el usuario esta logueado.
+        if($this->session->userdata('login')){
+            redirect(base_url());
+        }
+        //POST
+        $email = $this->input->post('email', true);
+        //Capturar user por correo.
+        $user =$this->Users_model->get_user_by_email($email);
+
+        if (empty($user)) {
+            $this->session->set_flashdata('error', html_escape("¡Error, no se pudo recuperar su contraseña!"));
+            redirect($this->agent->referrer());
+        } else {
+            $this->load->model("email_model");
+            $this->email_model->send_email_reset_password($user->id);
+            $this->session->set_flashdata('success', "Le hemos enviado un correo electrónico para restablecer su contraseña. Por favor revise su bandeja de entrada o no deseados para los próximos pasos.");
+            redirect($this->agent->referrer());
+        }
+    }
+    
+    /**
+    * vista pare reset de la contraseña.
+    */
+    public function reset_password()
+    {
+        $data['title'] = "Establecer nueva contraseña";
+        $data['application_name'] = $this->settings->application_name;
+        $data['description'] = $this->settings->site_description;
+        $data['keywords'] = $this->settings->keywords;
+
+        $token = $this->input->get('token', true); // capturar el token desde URL
+        //get user
+        $data["user"] = $this->Users_model->get_user_by_token($token);
+
+        $data["login"] = $this->session->flashdata('login'); // si esta logeado
+
+        if (empty($data["user"]) && empty($data["login"])) {
+            redirect(base_url());
+        }
+
+        $this->load->view('admin/auth/reset_password', $data);
+    }
+    /**
+    * Reset Password Post
+    */
+    public function reset_password_post()
+    {
+        $login = $this->input->post('login', true);
+
+        if ($login == 1) {
+            redirect(base_url());
+        }
+
+        $this->form_validation->set_rules('password', "new_password", 'required|xss_clean|min_length[4]|max_length[50]');
+        $this->form_validation->set_rules('password_confirm', "confirm_password", 'required|xss_clean|matches[password]');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('error', validation_errors() );
+            $this->session->set_flashdata('form_data', $this->Users_model->change_password_input_values());
+            redirect($this->agent->referrer());
+        } else {
+            $token = $this->input->post('token', true);
+            //get user
+            $user = $this->Users_model->get_user_by_token($token);
+
+            if ($this->Users_model->reset_password($token) && !empty($user) ) {
+                // envio del mensaje de confirmación al usuario
+                $this->Email_model->send_email_reset_password_confirmation($user->id);
+                // retornar al Login
+                $this->session->set_flashdata('success', "¡Su contraseña ha sido cambiada exitosamente!");
+                redirect(base_url());
+            } else {
+                $this->session->set_flashdata('error', "¡Error, hubo un problema al cambiar su contraseña!");
+                redirect($this->agent->referrer());
+            }
+        }
+    }   
+
 }

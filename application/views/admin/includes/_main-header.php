@@ -15,10 +15,7 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
                     <img class="logo-dark logo-img" src="<?php echo base_url(); ?>assets/images/logo-dark.png" srcset="<?php echo base_url(); ?>assets/images/logo-dark2x.png 2x" alt="logo-dark">
                 </a>
             </div><!-- .nk-header-brand -->
-            <div class="nk-header-search ml-3 ml-xl-0">
-                <em class="icon ni ni-search"></em>
-                <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search anything">
-            </div><!-- .nk-header-news -->
+
             <div class="nk-header-tools">
                 <ul class="nk-quick-nav">
                     </li><!-- .dropdown -->
@@ -33,18 +30,25 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
                             <div class="dropdown-inner user-card-wrap bg-lighter">
                                 <div class="user-card">
+                                    <?php 
+                                        $re = '/\b(\w)[^\s]*\s*/m';
+                                        $str = $this->session->userdata("fullname");
+                                        $subst = '$1';
+                                        $result = preg_replace($re, $subst, $str);
+                                    ?>
                                     <div class="user-avatar">
-                                        <span>AB</span>
+                                        <span><?php echo $result ?></span>
                                     </div>
                                     <div class="user-info">
-                                        <span class="lead-text">Abu Bin Ishtiyak</span>
-                                        <span class="sub-text">info@softnio.com</span>
+                                        <span class="lead-text"><?php echo $this->session->userdata("fullname") ?></span>
+                                        <span class="sub-text"><?php echo $this->session->userdata("email") ?></span>
+                                        <span class="badge badge-secondary"><?php echo $this->session->userdata("is_superuser") === "1" ? "Administrador" : "Usuario" ?></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="dropdown-inner">
                                 <ul class="link-list">
-                                    <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>Perfil</span></a></li>
+                                    <li><a href="<?php echo base_url(); ?>admin/user-profile/<?php echo $this->session->userdata("id") ?>"><em class="icon ni ni-user-alt"></em><span>Perfil</span></a></li>
                                 </ul>
                             </div>
                             <div class="dropdown-inner">

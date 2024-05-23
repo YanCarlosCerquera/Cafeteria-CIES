@@ -45,7 +45,7 @@
                                     <div class="form-group">
                                         <div class="form-label-group">
                                             <label class="form-label" for="password">Contraseña</label>
-                                            <a class="link link-primary link-sm" href="#" tabindex="-1">Olvidaste tu Contraseña?</a>
+                                            <a class="link link-primary link-sm" href="<?php echo base_url(); ?>forgot-password" tabindex="-1">¿Olvidó la contraseña?</a>
                                         </div>
                                         <div class="form-control-wrap">
                                             <a href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password"

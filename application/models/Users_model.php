@@ -197,4 +197,190 @@ class Users_model extends CI_Model{
         return $query->row();
     }
 
+    //get user by id
+    public function get_user($id)
+    {
+        $this->db->select("u.*, COUNT(d.userid) as total");
+        $this->db->from("mqtt_user u");
+        $this->db->join("mqtt_devices d", "u.id = d.userid", "left");
+        $this->db->where('u.id', $id);
+        $this->db->group_by('u.id');
+        $query = $this->db->get();
+        return $query->row();
+        
+    }
+    //get user by token
+    public function get_user_by_token($token)
+    {
+        $this->db->where('token', $token);
+        $query = $this->db->get('mqtt_user');
+        return $query->row();
+    }
+    // Actualizar el token del usuario en la base de datos
+    public function update_user_token($user_id, $token)
+    {
+        $data = array('token' => $token);
+        $this->db->where('id', $user_id);
+        $this->db->update('mqtt_user', $data);
+    }
+
+    //change password input values
+    public function change_password_input_values()
+    {
+        $data = array(
+            'old_password' => $this->input->post('old_password', true),
+            'password' => $this->input->post('password', true),
+            'password_confirm' => $this->input->post('password_confirm', true)
+        );
+        return $data;
+    }
+        
+    //reset password
+    public function reset_password($token)
+    {
+        $user = $this->get_user_by_token($token);
+        if (!empty($user)) {
+            $new_password = $this->input->post('password', true);
+            $data = array(
+                'password' => hash('sha256', $new_password, FALSE),
+                'token' => generate_unique_id()
+            );
+            //change password
+            $this->db->where('id', $user->id);
+            return $this->db->update('mqtt_user', $data);
+        }
+        return false;
+    }  
+
+        // Es el mismo Usuario
+        public function is_same_user($id)
+        {
+            // verificar si esta logueado
+            if (!$this->is_logged_in()) {
+                return false;
+            }
+            // verificar el id
+            if ($this->get_user_id() == $id) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+            //update profile
+    public function update_profile($data, $user_id)
+    {
+        $this->load->model('upload_model');
+        $temp_path = $this->upload_model->upload_temp_image('file', 'path');
+        if (!empty($temp_path)) {
+            $data["photo"] = $this->upload_model->avatar_upload($this->get_user_id(), $temp_path);
+
+            $this->upload_model->delete_temp_image($temp_path);
+            // delete old
+            // Usuario
+            $user = $this->get_user($user_id);
+            // elimina la foto antigua de perfil
+            delete_file_from_server($user->photo);
+        }
+        $this->db->where('id', $user_id);
+        return $this->db->update('mqtt_user', $data);
+    }
+
+    //update user 
+    public function update_user($id, $data)
+    {
+        // Modificar el slug en la data antes de insertar el usuario
+        $data['slug'] = $this->generate_uniqe_slug($data["fullname"]);
+        $this->db->where('id', $id);
+        return $this->db->update('mqtt_user', $data);
+    }
+
+    //change password
+    public function change_password()
+    {
+        $user = $this->get_logged_user(); // usuario en sesion
+        if (!empty($user)) {
+            $data = $this->change_password_input_values();
+            if ($this->input->post('is_pass_exist', true) == 1) {
+                //password does not match stored password.
+                if (hash('sha256', $data['old_password'], FALSE) !== $user->password) {
+                    $this->session->set_flashdata('error', "¡Error, la contraseña anterior no coincide!");
+                    $this->session->set_flashdata('form_data', $this->change_password_input_values());
+                    redirect($this->agent->referrer());
+                }
+            }
+            $data = array(
+                'password' => hash('sha256', $data['password'], FALSE)
+            );
+            $this->db->where('id', $user->id);
+            return $this->db->update('mqtt_user', $data);
+        } else {
+            return false;
+        }
+    }
+
+    // Eliminar
+    public function delete_user($id)
+    {
+        $user = $this->get_user($id);
+        if (!empty($user)) {
+            $this->db->where('id', $id);
+            return $this->db->delete('mqtt_user');
+        } else {
+            return false;
+        }
+    }
+
+    // Es Administrador
+    public function is_admin()
+    {
+        // verificar si esta logueado
+        if (!$this->is_logged_in()) {
+            return false;
+        }
+        // verificar el rol
+        if ($this->session->userdata('is_superuser') == '1') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+     //get users
+     public function get_users()
+     {
+         $query = $this->db->get('mqtt_user');
+         return $query->result();
+     }
+ 
+     //ban user
+     public function ban_user($id)
+     {
+         $user = $this->get_user($id);
+         if (!empty($user)) {
+             $data = array(
+                 'status' => 0
+             );
+             $this->db->where('id', $id);
+             return $this->db->update('mqtt_user', $data);
+         } else {
+             return false;
+         }
+     }
+ 
+     //remove ban user
+     public function remove_user_ban($id)
+     {
+         $user = $this->get_user($id);
+         if (!empty($user)) {
+             $data = array(
+                 'status' => 1
+             );
+             $this->db->where('id', $id);
+             return $this->db->update('mqtt_user', $data);
+         } else {
+             return false;
+         }
+     }
+
 }

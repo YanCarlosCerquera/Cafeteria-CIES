@@ -49,16 +49,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'auth_controller';
-$route['404_override'] = '';
+$route['default_controller']   = 'auth_controller';
+$route['404_override']         = 'admin_controller/error404';
 $route['translate_uri_dashes'] = FALSE;
+$route['error-404']            = 'admin_controller/error404';
 
 //Auth
 $route['login']['POST']         = 'auth_controller/login';
 $route['logout']                = 'auth_controller/logout';
 $route['register']              = 'auth_controller/register';
-
+$route['forgot-password']       = 'auth_controller/forgot_password';
+$route['reset-password']        = 'auth_controller/reset_password';
 
 // Admin
 $route['admin/dashboard']       = 'admin_controller';
+$route['admin/activity-logs']['GET']         = 'admin_controller/activity_logs';
 
+// Usuarios
+$route['admin/user-profile/(:num)']   = 'users_controller/profile/$1';
+$route['admin/user-add']['GET']       = 'users_controller/add_user';
+$route['admin/users']['GET']          = 'users_controller/users';
+
+//Settings
+$route['admin/settings']['GET']           = 'settings_controller';
+$route['admin/email-settings']['GET']     = 'email_controller';
+$route['admin/mqtt-settings']['GET']      = 'settings_controller/mqtt_settings';
+
+// Devices
+$route['admin/devices-add']['GET']           = 'devices_controller/deviceAdd';
+$route['admin/devices-store']['POST']        = 'devices_controller/deviceStore';
+$route['admin/devices-list']['GET']          = 'devices_controller/deviceList';
+$route['admin/devices/view/(:any)']          = 'devices_controller/deviceView/$1';
+
+
+// API para respuestas desde los recursos de EMQX.
+$route['api/v1/devices/status']['POST']      = 'api/apidevices_controller/status';
+$route['api/v1/devices/store']['POST']       = 'api/apidevices_controller/store';
