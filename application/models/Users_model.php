@@ -97,6 +97,16 @@ class Users_model extends CI_Model{
         );
         return $data;
     }
+
+    public function password_check($password) {
+        // Verificar que la contraseña tenga al menos una letra minúscula, una letra mayúscula, un número y un carácter especial
+        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/', $password)) {
+            $this->form_validation->set_message('password_check', 'La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.');
+            return false;
+        }
+        return true;
+    }
+
     //check if username is unique
     public function is_unique_username($username, $user_id = 0)
     {
