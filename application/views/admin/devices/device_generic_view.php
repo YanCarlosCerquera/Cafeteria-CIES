@@ -115,9 +115,31 @@
                                             <div class="card-full overflow-hidden card-inner">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title text-primary">FLUJO DE AGUA</h6>
+                                                        <select name="variable" required>
+                                                            <option value="1 class=" title text-primary>
+                                                                <h6>TEMPERATURA</h6>
+                                                            </option>
+                                                            <option value="2">HUMEDAD</option>
+                                                            <option value="3">PH</option>
+                                                            <option value="4">PRESIÓN</option>
+                                                            <option value="5">FLUJO DE AGUA</option>
+                                                        </select>
+                                                        <style>
+                                                            select {
+                                                                max-width: 200px;
+                                                                width: 100%;
+                                                                padding: 6px;
+                                                                margin: 10px 0px 40px;
+                                                                font-size: 1.05rem;
+                                                                border: none;
+                                                                text-align: center;
+                                                                font-family: Nunito, sans-serif;
+                                                                font-weight: 700;
+                                                                color: #0fac81;
+                                                            }
+                                                        </style>
                                                     </div>
-                                                </div> 
+                                                </div>
                                                 <div class="card-inner text-center">
                                                     <div class="nk-knob text-center">
                                                         <input type="text" class="knob-half" value="" data-fgColor="#0fac81" data-bgColor="#d9e5f7" data-min="-55" data-max="125" data-thickness=".07" data-width="120" data-height="115" id="deviceDS18B20TempCG_<?php echo $device == NULL ? '' : $device->serialnumber ?>">
@@ -132,7 +154,29 @@
                                             <div class="card-full overflow-hidden card-inner">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title text-primary">HUMEDAD DEL SUELO</h6>
+                                                        <select name="variable" required>
+                                                            <option value="1 class=" title text-primary>
+                                                                <h6>TEMPERATURA</h6>
+                                                            </option>
+                                                            <option value="2">HUMEDAD</option>
+                                                            <option value="3">PH</option>
+                                                            <option value="4">PRESIÓN</option>
+                                                            <option value="5">FLUJO DE AGUA</option>
+                                                        </select>
+                                                        <style>
+                                                            select {
+                                                                max-width: 200px;
+                                                                width: 100%;
+                                                                padding: 6px;
+                                                                margin: 10px 0px 40px;
+                                                                font-size: 1.05rem;
+                                                                border: none;
+                                                                text-align: center;
+                                                                font-family: Nunito, sans-serif;
+                                                                font-weight: 700;
+                                                                color: #0fac81;
+                                                            }
+                                                        </style>
                                                     </div>
                                                 </div>
                                                 <div class="card-inner text-center">
@@ -496,7 +540,7 @@
                                                                             <label class="form-label">Filtro</label>
                                                                             <div class="form-control-wrap">
                                                                                 <select class="form-select" id="select_items" onchange="updateValue(this)">
-                                                                                    
+
                                                                                     <option value="3">Temp CPU °C</option>
                                                                                     <option value="4" selected>Flujo de agua</option>
                                                                                     <option value="5">Humedad</option>
@@ -574,8 +618,7 @@
         }
     }
 
-    const selects = [
-        {
+    const selects = [{
             name: 'Relay01',
             value: 'deviceRelay1Status',
             unit: 'status',
@@ -663,11 +706,11 @@
                     data: datas
                 }]
             };
-            lineChart('.line-chart', solidLineChart );
+            lineChart('.line-chart', solidLineChart);
         })()
     });
 
-    async function updateValue(e){
+    async function updateValue(e) {
         //console.log(e);
         const data = {
             id: document.getElementById("deviceId").value,

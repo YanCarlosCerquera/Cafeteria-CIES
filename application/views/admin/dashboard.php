@@ -19,9 +19,9 @@
                             <div class="nk-block-head nk-block-head-sm">
                                 <div class="nk-block-between">
                                     <div class="nk-block-head-content">
-                                        <h3 class="nk-block-title page-title">Dashboard</h3>
+                                        <h3 class="nk-block-title page-title">Tablero principal de monitoreo</h3>
                                         <div class="nk-block-des text-soft">
-                                            <p>Bienvenidos al Dashboard de Tecnoparque</p>
+                                          
                                         </div>
                                     </div><!-- .nk-block-head-content -->
                                 </div><!-- .nk-block-between -->
@@ -140,7 +140,7 @@
                                                                 <div class="pricing-head">
                                                                     <div class="pricing-title">
                                                                         <h4 class="card-title title device">
-                                                                            <em class="icon ni ni-cpu"></em><a data-original-title="<?php echo $device->name ?>" title="<?php echo $device->name ?>" href="<?php echo base_url() .'admin/devices/view/' .get_serial64($device->serialnumber); ?>"><span class="text-primary"><?php echo $device->serialnumber ?></span>
+                                                                            <em class="icon ni ni-cpu"></em><a data-original-title="<?php echo $device->name ?>" title="<?php echo $device->name ?>" href="<?php echo base_url() . 'admin/devices/view/' . get_serial64($device->serialnumber); ?>"><span class="text-primary"><?php echo $device->serialnumber ?></span>
                                                                             </a>
                                                                         </h4>
                                                                         <p class="sub-text"><?php echo $device->name ?></p>
@@ -149,11 +149,35 @@
                                                                         <div class="row">
                                                                             <div class="col-6">
                                                                                 <span class="h4 fw-500" id="deviceDS18B20TempCG_<?php echo $device->serialnumber ?>">-</span><span class="h4 fw-500"></span>
-                                                                                <span class="sub-text">Flujo de agua</span>
+                                                                                <select name="variable" required>
+                                                                                    <option value="1">Temperatura</option>
+                                                                                    <option value="2">Humedad</option>
+                                                                                    <option value="3">pH</option>
+                                                                                    <option value="4">Presión</option>
+                                                                                    <option value="5">Flujo de Agua</option>
+                                                                                </select>
+                                                                                <style>
+                                                                                    select {
+                                                                                        max-width: 200px;
+                                                                                        width: 100%;
+                                                                                        padding: 6px;
+                                                                                        margin: 10px 0px 40px;
+                                                                                        font-size: 0.9rem;
+                                                                                        border: none;
+                                                                                        text-align: center;
+                                                                                        font-weight: bold;
+                                                                                    }
+                                                                                </style>
                                                                             </div>
                                                                             <div class="col-6">
                                                                                 <span class="h4 fw-500" id="deviceDS18B20TempFG_<?php echo $device->serialnumber ?>">-</span><span class="h4 fw-500"></span>
-                                                                                <span class="sub-text">Humedad</span>
+                                                                                <select name="variable" required>
+                                                                                    <option value="1">Temperatura</option>
+                                                                                    <option value="2">Humedad</option>
+                                                                                    <option value="3">pH</option>
+                                                                                    <option value="4">Presión</option>
+                                                                                    <option value="5">Flujo de Agua</option>
+                                                                                </select>
                                                                             </div>
                                                                         </div>
                                                                     </div>

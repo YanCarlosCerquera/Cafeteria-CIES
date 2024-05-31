@@ -20,7 +20,7 @@
                             <div class="nk-block-head nk-block-head-sm">
                                 <div class="nk-block-between g-3">
                                     <div class="nk-block-head-content">
-                                        <h3 class="nk-block-title page-title">Configuraciones generales | <strong class="text-primary small">IOT SENA</strong></h3>
+                                        <h3 class="nk-block-title page-title">Configuraciones generales | <strong class="text-primary small">IoT SENA</strong></h3>
                                         <div class="nk-block-des text-soft d-none d-md-inline-flex">
                                             <ul class="breadcrumb breadcrumb-pipe">
                                                 <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>admin/dashboard">Inicio</a></li>

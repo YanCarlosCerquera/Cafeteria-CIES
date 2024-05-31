@@ -27,24 +27,52 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
                                 </div>
                             </div>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu dropdown-menu-right">
                             <div class="dropdown-inner user-card-wrap bg-lighter">
                                 <div class="user-card">
-                                    <?php 
-                                        $re = '/\b(\w)[^\s]*\s*/m';
-                                        $str = $this->session->userdata("fullname");
-                                        $subst = '$1';
-                                        $result = preg_replace($re, $subst, $str);
+                                    <style>
+                                        .user-card{
+                                            width: 300px;
+                                        }
+                                    </style>
+                                    <?php
+                                    $re = '/\b(\w)[^\s]*\s*/m';
+                                    $str = $this->session->userdata("fullname");
+                                    $subst = '$1';
+                                    $result = preg_replace($re, $subst, $str);
                                     ?>
                                     <div class="user-avatar">
-                                        <span><?php echo $result ?></span>
+                                        <img class="avatar_perfil"  src="<?php echo base_url()?><?php echo $this->session->userdata('photo')?>">
                                     </div>
+                                    <style>
+                                        .avatar_perfil{
+                                            height: 80px !important;
+                                            width: 80px !important;
+                                            margin-right: 5px !important;
+                                            object-fit: cover !important;
+                                            max-width: 100px;
+                                        }
+                                    </style>
                                     <div class="user-info">
+                                        <style>
+                                            .user-info{
+                                                padding-left: 3em;
+                                            }
+                                        </style>
                                         <span class="lead-text"><?php echo $this->session->userdata("fullname") ?></span>
                                         <span class="sub-text"><?php echo $this->session->userdata("email") ?></span>
                                         <span class="badge badge-secondary"><?php echo $this->session->userdata("is_superuser") === "1" ? "Administrador" : "Usuario" ?></span>
                                     </div>
                                 </div>
+                                <style>
+                                    .lead-text {
+                                        font-size: 16px !important;
+                                    }
+
+                                    .sub-text {
+                                        font-size: 14px !important;
+                                    }
+                                </style>
                             </div>
                             <div class="dropdown-inner">
                                 <ul class="link-list">
@@ -53,7 +81,7 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
                             </div>
                             <div class="dropdown-inner">
                                 <ul class="link-list">
-                                    <li><a href="<?php echo base_url()?>logout"><em class="icon ni ni-signout"></em><span>Salir</span></a></li>
+                                    <li><a href="<?php echo base_url() ?>logout"><em class="icon ni ni-signout"></em><span>Salir</span></a></li>
                                 </ul>
                             </div>
                         </div>

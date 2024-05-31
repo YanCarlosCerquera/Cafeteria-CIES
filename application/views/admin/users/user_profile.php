@@ -122,6 +122,12 @@
                                                                             <span class="profile-ud-value"><?php echo $user->status ? '<span class="lead-text text-success">Activo</span>' : '<span class="lead-text text-danger">Desactivado</span>' ?></span>
                                                                         </div>
                                                                     </div>
+
+                                                                    <style>
+                                                                        .profile-ud-value{
+                                                                            text-align: left !important;
+                                                                        }
+                                                                    </style>
                                                                 </div><!-- .profile-ud-list -->
                                                             </div><!-- .nk-block -->
                                                         </div><!-- tab pane -->
@@ -457,7 +463,7 @@
                                 <em class="passcode-icon icon-show icon ni ni-eye"></em>
                                 <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
                             </a>
-                            <input type="password" autocomplete="off" class="form-control form-control-lg" value="<?php echo old("password"); ?>" id="password" name="password" placeholder="Nueva Contraseña" required>
+                            <input type="password" autocomplete="off" class="form-control form-control-lg" value="<?php echo old("password"); ?>" id="password" name="password" placeholder="Nueva Contraseña" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}" title="La contraseña debe tener al menos 8 caracteres y contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.">
                         </div>
                     </div>
                     <div class="form-group">
@@ -470,6 +476,7 @@
                             <input type="password" autocomplete="off" class="form-control form-control-lg" value="<?php echo old("password_confirm"); ?>" id="password_confirm" name="password_confirm" placeholder="Confirmación" required>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-lg btn-outline-primary">Guardar los cambios</button>
                     </div>

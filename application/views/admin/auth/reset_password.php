@@ -50,7 +50,8 @@
                                             <em class="passcode-icon icon-show icon ni ni-eye"></em>
                                             <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
                                         </a>
-                                        <input type="password" autocomplete="off" class="form-control form-control-lg" id="password" name="password" value="<?php echo old("password"); ?>" placeholder="Nueva contraseña" required="">
+                                        <input type="password" autocomplete="off" class="form-control form-control-lg" id="password" name="password" value="<?php echo old("password"); ?>" placeholder="Nueva contraseña" 
+                                        required="" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$" title="La contraseña debe tener minimo 8 caracteres y contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.">
                                     </div>
                                 </div>
 
