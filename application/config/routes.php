@@ -49,12 +49,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller']   = 'auth_controller';
+$route['default_controller']   = 'index_controller';
 $route['404_override']         = 'admin_controller/error404';
 $route['translate_uri_dashes'] = FALSE;
 $route['error-404']            = 'admin_controller/error404';
 
 //Auth
+$route['inicio-sesion']         = 'auth_controller/cargar_login';
 $route['login']['POST']         = 'auth_controller/login';
 $route['logout']                = 'auth_controller/logout';
 $route['register']              = 'auth_controller/register';
@@ -62,8 +63,8 @@ $route['forgot-password']       = 'auth_controller/forgot_password';
 $route['reset-password']        = 'auth_controller/reset_password';
 
 // Admin
-$route['admin/dashboard']       = 'admin_controller';
-$route['admin/activity-logs']['GET']         = 'admin_controller/activity_logs';
+$route['admin/dashboard']                  = 'admin_controller';
+$route['admin/activity-logs']['GET']       = 'admin_controller/activity_logs';
 
 // Usuarios
 $route['admin/user-profile/(:num)']   = 'users_controller/profile/$1';

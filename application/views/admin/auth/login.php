@@ -23,11 +23,46 @@
                 <!-- content @s -->
                 <div class="nk-content ">
                     <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
-                        <div class="brand-logo pb-4 text-center">
+                        <div class="brand-logo pb-0 text-center logo-organizacion">
                             <a href="<?php echo base_url(); ?>" class="logo-link">
-                                <img class="logo-light logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo.png" srcset="<?php echo base_url(); ?>assets/images/logo2x.png 2x" alt="logo">
-                                <img class="logo-dark logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark.png" srcset="<?php echo base_url(); ?>assets/images/logo-dark2x.png 2x" alt="logo-dark">
+                                <img class="logo-light logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo2x.png 2x" alt="logo">
+                                <img class="logo-dark logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo-dark2x.png 2x" alt="logo-dark">
                             </a>
+                            <p>Servicios <br>Tecnologicos</p>
+                            <img src="<?php echo base_url() ?>assets/images/line.png" class="lineaLogoIcon">
+                            <p>Tecnoparque <br>Nodo Neiva</p>
+                            <style>
+                                .logo-img-lg {
+                                    max-width: 100px !important;
+                                    width: 100px !important;
+                                    max-height: 100px !important;
+                                    position: relative;
+                                    top: 2.5em !important;
+                                }
+
+                                .logo-organizacion {
+                                    display: flex;
+                                    flex-direction: row;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+
+                                .logo-organizacion p {
+                                    font-size: 16px;
+                                    font-family: Nunito, sans-serif;
+                                    font-weight:  bold !important;
+                                    line-height: normal;
+                                    color: black !important;
+                                }
+
+                                .lineaLogoIcon {
+                                    height: 1.8em;
+                                    width: 2.5em;
+                                    scale: 2.5;
+                                    position: relative;
+                                    top: -0.5em;
+                                }
+                            </style>
                         </div>
                         <div class="card card-bordered">
                             <style>
@@ -78,7 +113,7 @@
                                                 .link-primary {
                                                     font-weight: bolder !important;
                                                     color: white !important;
-                                                    
+
                                                 }
                                             </style>
                                         </div>
@@ -128,11 +163,11 @@
                     <!-- WhatsApp Icon -->
                     <div class="text-right pt-4 pb-3">
                         <a href="https://api.whatsapp.com/send?phone=" class="btn btn-lg btn-whatsapp" target="_blank">
-                        <i class="bi bi-whatsapp whatsapp-icon"></i>
+                            <i class="bi bi-whatsapp whatsapp-icon"></i>
                         </a>
                     </div>
                     <style>
-                        .whatsapp-icon{
+                        .whatsapp-icon {
                             color: white !important;
                             font-size: 3rem;
                         }

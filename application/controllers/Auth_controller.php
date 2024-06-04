@@ -9,6 +9,16 @@ class Auth_controller extends Core_controller
         $this->load->model('Email_model');
     }
 
+    public function cargar_login()
+    {   
+        $data['title'] = "Inicio de sesión";
+        $data['application_name'] = $this->settings->application_name;
+        $data['description'] = $this->settings->site_description;
+        $data['keywords'] = $this->settings->keywords;
+
+        $this->load->view("admin/auth/login", $data);
+    }
+
     /***
      *  Cargar la vista del login
      * */

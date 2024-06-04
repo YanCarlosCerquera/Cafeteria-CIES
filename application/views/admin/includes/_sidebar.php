@@ -13,10 +13,25 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
 
 <div class="nk-sidebar" data-content="sidebarMenu">
     <div class="nk-sidebar-bar">
-        <div class="nk-apps-brand">
-            <a href="html/index.html" class="logo-link">
-                <img class="logo-light logo-img" src="<?php echo base_url(); ?>assets/images/logo-small.png" srcset="<?php echo base_url(); ?>assets/images/logo-small2x.png 2x" alt="logo">
+        <div class="nk-apps-brand-left">
+            <a href="#" class="logo-link">
+                <img class="logo-light logo-img" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo-small2x.png 2x" alt="logo">
                 <img class="logo-dark logo-img" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo-dark-small2x.png 2x" alt="logo-dark">
+
+                <style>
+                    .nk-apps-brand{
+                        justify-content: left !important;
+                    }
+                    .logo-img{
+                        max-width: 80px !important;
+                        max-height: 80px !important;
+                        margin-left: 0 !important;
+                    }
+                    .nk-apps-brand .logo-link{
+                        justify-content: flex-start !important;
+
+                    }
+                </style>
             </a>
         </div>
         <div class="nk-sidebar-element">
@@ -53,7 +68,7 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
                     <li class="nk-menu-item active current-page">
                         <a href="<?php echo base_url() ?>admin/dashboard" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
-                            <span class="nk-menu-text">Dashboard</span>
+                            <span class="nk-menu-text">Tablero principal</span>
                         </a>
                     </li><!-- .nk-menu-item -->
 
