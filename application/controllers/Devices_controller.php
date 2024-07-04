@@ -63,6 +63,8 @@ class Devices_controller extends Core_Controller
             // traer respuesta recurso web-hook-status | web-hook-store
             $web_hook_status = $this->get_resource($data_resources, "web-hook-status");
             $web_hook_store  = $this->get_resource($data_resources, "web-hook-store");
+            // var_dump($resources);
+            // die();
             // si no hay recursos y si no existe el recurso web-hook-status | web-hook-store
             if (!$data_resources["data"] && !$web_hook_status && !$web_hook_store) {
                 // si no esta el recurso lo creo

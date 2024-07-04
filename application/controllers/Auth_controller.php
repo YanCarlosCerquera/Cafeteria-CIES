@@ -57,7 +57,7 @@ class Auth_controller extends Core_controller
 
             if (!$res) {
                 $this->session->set_flashdata('error', '¡El usuario y/o contraseña son incorrectos, intente de nuevo!');
-                redirect(base_url());
+                redirect(base_url() . 'inicio-sesion');
             } else {
                 $this->Users_model->update_last_seen($res->id);
                 // datos del usuario logeado

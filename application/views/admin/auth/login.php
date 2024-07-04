@@ -1,6 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
 
 
 <!-- Cargar Vista del Header -->
@@ -26,7 +29,7 @@
                         <div class="brand-logo pb-0 text-center logo-organizacion">
                             <a href="<?php echo base_url(); ?>" class="logo-link">
                                 <img class="logo-light logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo2x.png 2x" alt="logo">
-                                <img class="logo-dark logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo-dark2x.png 2x" alt="logo-dark">
+                                <img class="logo-dark logo-img logo-img-lg" C srcset="<?php echo base_url(); ?>assets/images/logo-dark2x.png 2x" alt="logo-dark">
                             </a>
                             <p>Servicios <br>Tecnologicos</p>
                             <img src="<?php echo base_url() ?>assets/images/line.png" class="lineaLogoIcon">
@@ -40,6 +43,17 @@
                                     top: 2.5em !important;
                                 }
 
+
+                                @media (max-width: 500px) {
+                                    .logo-img-lg {
+                                        max-width: 70px !important;
+                                        width: 60px !important;
+                                        max-height: 70px !important;
+                                        position: relative;
+                                        top: -0.2em !important;
+                                    }
+                                }
+
                                 .logo-organizacion {
                                     display: flex;
                                     flex-direction: row;
@@ -50,9 +64,10 @@
                                 .logo-organizacion p {
                                     font-size: 16px;
                                     font-family: Nunito, sans-serif;
-                                    font-weight:  bold !important;
+                                    font-weight: bold !important;
                                     line-height: normal;
                                     color: black !important;
+                                    font-weight: 900 !important;
                                 }
 
                                 .lineaLogoIcon {
@@ -61,6 +76,7 @@
                                     scale: 2.5;
                                     position: relative;
                                     top: -0.5em;
+
                                 }
                             </style>
                         </div>
@@ -147,13 +163,38 @@
                                     <h6 class="overline-title overline-title-sap"><span>O</span></h6>
                                 </div>
                                 <i class="fa-brands fa-whatsapp"></i>
-                                <ul class="nav justify-center gx-4">
-                                    <li class="nav-item"><a class="nav-link" href="https://industriaempresayservicios.blogspot.com/p/servicios-tecnologicos.html">Servicios Tecnologicos</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="https://sena.edu.co/es-co/Paginas/default.aspx">SENA comunica</a></li>
+                                <ul class="nav justify-space-be gx-4">
+                                    <!-- <li class="nav-item"><a class="nav-link" href="https://industriaempresayservicios.blogspot.com/p/servicios-tecnologicos.html">Servicios Tecnologicos</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="https://sena.edu.co/es-co/Paginas/default.aspx">SENA comunica</a></li> -->
+                                    <img class="logo_ost" src="<?php echo base_url(); ?>assets/images/Icono OST.png">
+                                    <a href="#" class="btn btn-lg" target="_blank">
+                                    <i class="bi bi-facebook facebook-icon"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-lg" target="_blank">
+                                    <i class="bi bi-youtube youtube-icon"></i>
+                                    </a>
+                        
+                                    <img class="logo_sena" src="<?php echo base_url(); ?>assets/images/logo.png">
                                     <style>
                                         .nav-item {
                                             font-weight: bolder !important;
+                                        }
 
+                                        .logo_ost {
+                                            max-width: 100px;
+                                            height: 50px;
+                                            margin-top: 20px;
+                                          
+                                        }
+                                        .logo_sena{
+                                            max-width: 160px;
+                                            height: 90px;
+                                            margin-top: -2px;
+                                        }
+                                        @media (max-width: 582px) {
+                                            .logo_ost{
+                                                margin-top: 5px;
+                                            }
                                         }
                                     </style>
                                 </ul>
@@ -167,9 +208,15 @@
                         </a>
                     </div>
                     <style>
+                        .facebook-icon, 
+                        .youtube-icon,
+                        .pagina-icon,
                         .whatsapp-icon {
                             color: white !important;
-                            font-size: 3rem;
+                            font-size: 2.5rem;
+                        }
+                        .gx-4{
+                            margin-left: 1.3rem !important;
                         }
                     </style>
                     <?php $this->load->view('admin/auth/includes/_footer_auth.php') ?>

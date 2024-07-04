@@ -40,9 +40,16 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
                                     $str = $this->session->userdata("fullname");
                                     $subst = '$1';
                                     $result = preg_replace($re, $subst, $str);
+                                    $photo = $this->session->userdata('photo');
+                                    $photo_url = base_url() . 'uploads/profile/avatar_default.jpg';
+                                    if (!empty($photo) && file_exists(FCPATH . $photo)) {
+                                        $photo_url = base_url() . $photo;
+                                    } elseif (!empty($photo)) {
+                                        $photo_url = $photo;
+                                    }
                                     ?>
                                     <div class="user-avatar">
-                                        <img class="avatar_perfil"  src="<?php echo base_url()?><?php echo $this->session->userdata('photo')?>">
+                                        <img class="avatar_perfil" src="<?php echo $photo_url; ?>">
                                     </div>
                                     <style>
                                         .avatar_perfil{

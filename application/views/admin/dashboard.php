@@ -21,7 +21,7 @@
                                     <div class="nk-block-head-content">
                                         <h3 class="nk-block-title page-title">Tablero principal de monitoreo</h3>
                                         <div class="nk-block-des text-soft">
-                                          
+
                                         </div>
                                     </div><!-- .nk-block-head-content -->
                                 </div><!-- .nk-block-between -->
@@ -149,12 +149,12 @@
                                                                         <div class="row">
                                                                             <div class="col-6">
                                                                                 <span class="h4 fw-500" id="deviceDS18B20TempCG_<?php echo $device->serialnumber ?>">-</span><span class="h4 fw-500"></span>
-                                                                                <select name="variable" required>
-                                                                                    <option value="1">Temperatura</option>
-                                                                                    <option value="2">Humedad</option>
-                                                                                    <option value="3">pH</option>
-                                                                                    <option value="4">Presión</option>
-                                                                                    <option value="5">Flujo de Agua</option>
+                                                                                <select name="variable1" id="variable1-select" onchange="saveSelectedVariable('variable1');reloadPage();">
+                                                                                    <option value="temperature">TEMPERATURA</option>
+                                                                                    <option value="humidity">HUMEDAD</option>
+                                                                                    <option value="ph">PH</option>
+                                                                                    <option value="pressure">PRESIÓN</option>
+                                                                                    <option value="water-flow">FLUJO DE AGUA</option>
                                                                                 </select>
                                                                                 <style>
                                                                                     select {
@@ -162,26 +162,61 @@
                                                                                         width: 100%;
                                                                                         padding: 6px;
                                                                                         margin: 10px 0px 40px;
-                                                                                        font-size: 0.9rem;
+                                                                                        font-size: 1.05rem;
                                                                                         border: none;
                                                                                         text-align: center;
-                                                                                        font-weight: bold;
+                                                                                        font-family: Nunito, sans-serif;
+                                                                                        font-weight: 700;
+                                                                                        color: #0fac81;
+                                                                                    }
+                                                                                    @media (max-width: 600px) {
+                                                                                        select {
+                                                                                            font-size: 0.6rem;
+                                                                                        }
                                                                                     }
                                                                                 </style>
                                                                             </div>
                                                                             <div class="col-6">
                                                                                 <span class="h4 fw-500" id="deviceDS18B20TempFG_<?php echo $device->serialnumber ?>">-</span><span class="h4 fw-500"></span>
-                                                                                <select name="variable" required>
-                                                                                    <option value="1">Temperatura</option>
-                                                                                    <option value="2">Humedad</option>
-                                                                                    <option value="3">pH</option>
-                                                                                    <option value="4">Presión</option>
-                                                                                    <option value="5">Flujo de Agua</option>
+                                                                                <select name="variable2" id="variable2-select" onchange="saveSelectedVariable('variable2');reloadPage();">
+                                                                                    <option value="temperature">TEMPERATURA</option>
+                                                                                    <option value="humidity">HUMEDAD</option>
+                                                                                    <option value="ph">PH</option>
+                                                                                    <option value="pressure">PRESIÓN</option>
+                                                                                    <option value="water-flow">FLUJO DE AGUA</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <script>
+                                                                    function saveSelectedVariable(variableId) {
+                                                                        var select = document.getElementById(variableId + "-select");
+                                                                        var selectedVariable = select.options[select.selectedIndex].text;
+                                                                        localStorage.setItem(variableId + "-selectedVariable", selectedVariable);
+                                                                    }
+
+                                                                    document.addEventListener("DOMContentLoaded", function() {
+                                                                        var variableIds = ["variable1", "variable2"];
+
+                                                                        variableIds.forEach(function(variableId) {
+                                                                            var savedVariable = localStorage.getItem(variableId + "-selectedVariable");
+                                                                            if (savedVariable) {
+                                                                                var select = document.getElementById(variableId + "-select");
+                                                                                for (var i = 0; i < select.options.length; i++) {
+                                                                                    if (select.options[i].text === savedVariable) {
+                                                                                        select.selectedIndex = i;
+                                                                                        break;
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        });
+                                                                    });
+
+                                                                    function reloadPage() {
+                                                                        window.location.reload();
+                                                                    }
+                                                                </script>
                                                                 <div class="pricing-body">
                                                                     <ul class="pricing-features">
                                                                         <li>

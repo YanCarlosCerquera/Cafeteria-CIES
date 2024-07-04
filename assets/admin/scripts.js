@@ -203,6 +203,7 @@ FUNCIONES PARA CONEXIÓN POR MQTT
 // credenciales
 const mqtt_token = document.getElementById("mqtt_token").value; // base64
 const mqtt_user = document.getElementById("username").value;
+
 // Broker
 const mqtt_host = document.getElementById("mqtt_host").value;
 const mqtt_port = document.getElementById("mqtt_port").value;

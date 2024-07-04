@@ -29,8 +29,8 @@
                                         </div>
                                     </div>
                                     <div class="nk-block-head-content">
-                                        <a href="<?php echo base_url() ?>" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
-                                        <a href="<?php echo base_url() ?>" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
+                                        <a href="<?php echo base_url() ?>admin/dashboard" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
+                                        <a href="<?php echo base_url() ?>admin/dashboard" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                                     </div>
                                 </div>
                             </div><!-- .nk-block-head -->
@@ -115,14 +115,12 @@
                                             <div class="card-full overflow-hidden card-inner">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <select name="variable" required>
-                                                            <option value="1 class=" title text-primary>
-                                                                <h6>TEMPERATURA</h6>
-                                                            </option>
-                                                            <option value="2">HUMEDAD</option>
-                                                            <option value="3">PH</option>
-                                                            <option value="4">PRESIÓN</option>
-                                                            <option value="5">FLUJO DE AGUA</option>
+                                                        <select name="variable1" id="variable1-select" onchange="saveSelectedVariable('variable1');reloadPage();">
+                                                            <option value="temperature">TEMPERATURA</option>
+                                                            <option value="humidity">HUMEDAD</option>
+                                                            <option value="ph">PH</option>
+                                                            <option value="pressure">PRESIÓN</option>
+                                                            <option value="water-flow">FLUJO DE AGUA</option>
                                                         </select>
                                                         <style>
                                                             select {
@@ -149,19 +147,20 @@
                                         </div>
                                     </div>
 
+
+
+
                                     <div class="col-xxl-3 col-md-6">
                                         <div class="card">
                                             <div class="card-full overflow-hidden card-inner">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <select name="variable" required>
-                                                            <option value="1 class=" title text-primary>
-                                                                <h6>TEMPERATURA</h6>
-                                                            </option>
-                                                            <option value="2">HUMEDAD</option>
-                                                            <option value="3">PH</option>
-                                                            <option value="4">PRESIÓN</option>
-                                                            <option value="5">FLUJO DE AGUA</option>
+                                                        <select name="variable2" id="variable2-select" onchange="saveSelectedVariable('variable2');reloadPage();">
+                                                            <option value="temperature">TEMPERATURA</option>
+                                                            <option value="humidity">HUMEDAD</option>
+                                                            <option value="ph">PH</option>
+                                                            <option value="pressure">PRESIÓN</option>
+                                                            <option value="water-flow">FLUJO DE AGUA</option>
                                                         </select>
                                                         <style>
                                                             select {
@@ -187,6 +186,36 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    <script>
+                                        function saveSelectedVariable(variableId) {
+                                            var select = document.getElementById(variableId + "-select");
+                                            var selectedVariable = select.options[select.selectedIndex].text;
+                                            localStorage.setItem(variableId + "-selectedVariable", selectedVariable);
+                                        }
+
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            var variableIds = ["variable1", "variable2"];
+
+                                            variableIds.forEach(function(variableId) {
+                                                var savedVariable = localStorage.getItem(variableId + "-selectedVariable");
+                                                if (savedVariable) {
+                                                    var select = document.getElementById(variableId + "-select");
+                                                    for (var i = 0; i < select.options.length; i++) {
+                                                        if (select.options[i].text === savedVariable) {
+                                                            select.selectedIndex = i;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        });
+
+                                        function reloadPage() {
+                                            window.location.reload();
+                                        }
+                                    </script>
 
                                     <!-- Información -->
                                     <div class="col-md-12 col-xxl-6">
@@ -445,8 +474,8 @@
                                                                 <th>MQTT ID</th>
                                                                 <th>Serial</th>
                                                                 <th class="text-center">Temp CPU (°C)</th>
-                                                                <th class="text-center">Flujo de agua</th>
-                                                                <th class="text-center">Humedad</th>
+                                                                <th class="text-center" id="variable1">variable1</th>
+                                                                <th class="text-center" id="variable2">variable2</th>
                                                                 <th class="text-center">Reinicios</th>
                                                                 <th class="text-center">RSSI</th>
                                                                 <th class="text-center">WIFI (%)</th>
@@ -454,7 +483,22 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            <script>
+                                                                document.addEventListener("DOMContentLoaded", function() {
+                                                                    var variableIds = ["variable1", "variable2"];
 
+                                                                    variableIds.forEach(function(variableId) {
+                                                                        var savedVariable = localStorage.getItem(variableId + "-selectedVariable");
+                                                                        var variableCell = document.getElementById(variableId);
+
+                                                                        if (savedVariable && variableCell) {
+                                                                            variableCell.textContent = savedVariable;
+                                                                        } else {
+                                                                            variableCell.textContent = "No seleccionado";
+                                                                        }
+                                                                    });
+                                                                });
+                                                            </script>
                                                             <?php if (!empty($device_data)) : ?>
                                                                 <?php foreach ($device_data as $data) : ?>
                                                                     <tr>
@@ -535,15 +579,40 @@
                                                                             <div class="form-note">Formato de fecha <code>yyyy-mm-dd</code></div>
                                                                         </div>
                                                                     </div>
+                                                                    <script>
+                                                                        document.addEventListener('DOMContentLoaded', function() {
+                                                                            // Obtener el valor almacenado en localStorage
+                                                                            var storedVariable1Name = localStorage.getItem('variable1-selectedVariable');
+
+                                                                            // Actualizar el texto de la opción si el valor existe en localStorage
+                                                                            if (storedVariable1Name) {
+                                                                                var optionVariable1 = document.getElementById('variable_1');
+                                                                                if (optionVariable1) {
+                                                                                    optionVariable1.textContent = storedVariable1Name;
+                                                                                }
+                                                                            }
+                                                                        });
+                                                                        document.addEventListener('DOMContentLoaded', function() {
+                                                                            // Obtener el valor almacenado en localStorage
+                                                                            var storedVariable1Name = localStorage.getItem('variable2-selectedVariable');
+
+                                                                            // Actualizar el texto de la opción si el valor existe en localStorage
+                                                                            if (storedVariable1Name) {
+                                                                                var optionVariable2 = document.getElementById('variable_2');
+                                                                                if (optionVariable2) {
+                                                                                    optionVariable2.textContent = storedVariable1Name;
+                                                                                }
+                                                                            }
+                                                                        });
+                                                                    </script>
                                                                     <div class="col-md-2">
                                                                         <div class="form-group">
                                                                             <label class="form-label">Filtro</label>
                                                                             <div class="form-control-wrap">
                                                                                 <select class="form-select" id="select_items" onchange="updateValue(this)">
-
-                                                                                    <option value="3">Temp CPU °C</option>
-                                                                                    <option value="4" selected>Flujo de agua</option>
-                                                                                    <option value="5">Humedad</option>
+                                                                                    <option value="3" selected>Temp CPU °C</option>
+                                                                                    <option value="4" id="variable_1">variable_1</option>
+                                                                                    <option value="5" id="variable_2">varable_2</option>
                                                                                     <option value="6">WiFi RSSI</option>
                                                                                     <option value="7">WiFi %</option>
                                                                                 </select>
@@ -645,13 +714,13 @@
         {
             name: 'Temp DS18B20 °C',
             value: 'deviceDS18B20TempC',
-            unit: '°C',
+            unit: '',
             color: '#31827c'
         },
         {
             name: 'Temp DS18B20 °F',
             value: 'deviceDS18B20TempF',
-            unit: '°F',
+            unit: '',
             color: '#95c68f'
         },
         {

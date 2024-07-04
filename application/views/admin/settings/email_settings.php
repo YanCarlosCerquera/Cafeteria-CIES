@@ -29,15 +29,15 @@
                                         </div>
                                     </div>
                                     <div class="nk-block-head-content">
-                                        <a href="<?php echo base_url() ?>" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
-                                        <a href="<?php echo base_url() ?>" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
+                                        <a href="<?php echo base_url() ?>admin/dashboard" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
+                                        <a href="<?php echo base_url() ?>admin/dashboard" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                                     </div>
                                 </div>
                             </div><!-- .nk-block-head -->
                             <div class="nk-block">
                                 <div class="nk-block-head">
                                     <div class="nk-block-head-content">
-                                        <h4 class="nk-block-title">Ajustes del correo electónico</h4>
+                                        <h4 class="nk-block-title">Ajustes del correo electrónico</h4>
                                         <div class="nk-block-des">
                                             <strong class="text-dark">Nota:</strong> Modifique los ajustes para el envio de correos desde el sistema.
                                         </div>

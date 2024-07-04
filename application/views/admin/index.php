@@ -12,7 +12,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
 
   <!-- Icono -->
-  <link href="Assets/Img/logo-sena.png" rel="icon" />
+  <link href="<?php echo base_url(); ?>Assets/Img/logo-sena.png" rel="icon" />
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
@@ -22,30 +22,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet" />
 
   <!-- Library CSS Files -->
-  <link href="Assets/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="Assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <link href="Assets/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="<?php echo base_url(); ?>Assets/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="<?php echo base_url(); ?>Assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <link href="<?php echo base_url(); ?>Assets/node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
   <!-- libreria de efecto de scroll -->
-  <link href="Assets/node_modules/aos/dist/aos.css" rel="stylesheet" />
-  <script src="Assets/node_modules/aos/dist/aos.js"></script>
+  <link href="<?php echo base_url(); ?>Assets/node_modules/aos/dist/aos.css" rel="stylesheet" />
+  <script src="<?php echo base_url(); ?>Assets/node_modules/aos/dist/aos.js"></script>
   <!-- Swiper - libreria de  sliders -->
-  <link href="Assets/node_modules/swiper/swiper-bundle.min.css" rel="stylesheet" />
-  <script src="Assets/node_modules/swiper/swiper-bundle.min.js"></script>
+  <link href="<?php echo base_url(); ?>Assets/node_modules/swiper/swiper-bundle.min.css" rel="stylesheet" />
+  <script src="<?php echo base_url(); ?>Assets/node_modules/swiper/swiper-bundle.min.js"></script>
   <!-- Main CSS and JS Files -->
-  <link href="Assets/Css/Styles.css" type="text/css" rel="stylesheet" />
-  <script src="Assets/Js/Index.js"></script>
+  <link href="<?php echo base_url(); ?>Assets/Css/Styles.css" type="text/css" rel="stylesheet" />
+  <script src="<?php echo base_url(); ?>Assets/Js/Index.js"></script>
 </head>
 
 <body>
   <header id="header" class="header d-flex align-items-center">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
       <div class="logos-position">
-        <img src="Assets/Img/logo-sena.png" id="logo-sena" />
+        <img src="<?php echo base_url(); ?>Assets/Img/logo-sena.png" id="logo-sena" />
         <hr>
         <a class="logo text-center">
           <h1 class="riseL">Tecnoparque</h1>
           <h5 class="serviciosTec">Nodo Neiva</h5>
         </a>
+        <style>
+          @media (max-width: 500px) {
+            .logos-position {
+              position: relative !important;
+              display: flex !important;
+              justify-content: space-evenly !important;
+              align-items: center !important;
+              left: -0em !important;
+            }
+          }
+          
+        </style>
       </div>
       <nav id="navbar" class="navbar">
         <ul>
@@ -372,6 +384,17 @@
             <p class="sub-headerText">Centro de la Empresa la Industria y los Servicios <br>
               Carrera 9 No 68-50, NEIVA - PBX (60 8) 8757040 IP 83352
             </p>
+            <style>
+              .sub-headerText {
+                font-size: 26px !important;
+              }
+
+              @media (max-width: 500px) {
+                .sub-headerText {
+                  font-size: 16px !important;
+                }
+              }
+            </style>
           </div>
           <div class="social-links d-flex mt-4 justify-content-center">
             <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
