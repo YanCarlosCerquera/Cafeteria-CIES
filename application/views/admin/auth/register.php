@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
 <!-- Cargar Vista del Header -->
 <?php $this->load->view('admin/auth/includes/_header_auth.php') ?>
 
@@ -19,11 +19,59 @@
                 <!-- content @s -->
                 <div class="nk-content ">
                     <div class="nk-block nk-block-middle nk-auth-body wide-xs">
-                        <div class="brand-logo pb-4 text-center">
+                        <div class="brand-logo pb-0 text-center logo-organizacion">
                             <a href="<?php echo base_url(); ?>" class="logo-link">
-                                <img class="logo-light logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo.png" srcset="<?php echo base_url(); ?>assets/images/logo2x.png 2x" alt="logo">
-                                <img class="logo-dark logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark.png" srcset="<?php echo base_url(); ?>assets/images/logo-dark2x.png 2x" alt="logo-dark">
+                                <img class="logo-light logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo2x.png 2x" alt="logo">
+                                <img class="logo-dark logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo-dark2x.png 2x" alt="logo-dark">
                             </a>
+                            <p>Servicios <br>Tecnologicos</p>
+                            <img src="<?php echo base_url() ?>assets/images/line.png" class="lineaLogoIcon">
+                            <p>Tecnoparque <br>Nodo Neiva</p>
+                            <style>
+                                .logo-img-lg {
+                                    max-width: 100px !important;
+                                    width: 100px !important;
+                                    max-height: 100px !important;
+                                    position: relative;
+                                    top: 2.5em !important;
+                                }
+
+
+                                @media (max-width: 500px) {
+                                    .logo-img-lg {
+                                        max-width: 70px !important;
+                                        width: 60px !important;
+                                        max-height: 70px !important;
+                                        position: relative;
+                                        top: -0.2em !important;
+                                    }
+                                }
+
+                                .logo-organizacion {
+                                    display: flex;
+                                    flex-direction: row;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+
+                                .logo-organizacion p {
+                                    font-size: 16px;
+                                    font-family: Nunito, sans-serif;
+                                    font-weight: bold !important;
+                                    line-height: normal;
+                                    color: black !important;
+                                    font-weight: 900 !important;
+                                }
+
+                                .lineaLogoIcon {
+                                    height: 1.8em;
+                                    width: 2.5em;
+                                    scale: 2.5;
+                                    position: relative;
+                                    top: -0.5em;
+
+                                }
+                            </style>
                         </div>
                         <div class="card card-bordered">
                             <style>
@@ -38,14 +86,14 @@
                                     <div class="nk-block-head-content">
                                         <h4 class="nk-block-title">Registro de usuario</h4>
                                         <style>
-                                            .nk-block-title{
+                                            .nk-block-title {
                                                 color: white !important;
                                                 font-size: 1.8rem;
                                                 text-align: center;
                                             }
                                         </style>
                                         <div class="nk-block-des">
-                                          
+
                                         </div>
                                     </div>
                                 </div>
@@ -108,27 +156,64 @@
                                         color: white !important;
                                         font-size: 1rem;
                                     }
+
                                     .form-note-s2.text-center.pt-4 a {
-                                        color: white; 
+                                        color: white;
                                         font-weight: bolder;
                                         font-size: 1rem;
-        }
+                                    }
                                 </style>
                                 <div class="text-center pt-4 pb-3">
                                     <h6 class="overline-title overline-title-sap"><span>O</span></h6>
                                 </div>
-                                <ul class="nav justify-center gx-8">
-                                    <li class="nav-item"><a class="nav-link" href="https://industriaempresayservicios.blogspot.com/p/servicios-tecnologicos.html">Servicios Tecnologicos</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="https://sena.edu.co/es-co/Paginas/default.aspx">SENA comunica</a></li>
+                                <ul class="nav justify-space-be gx-4">
+                                    <!-- <li class="nav-item"><a class="nav-link" href="https://industriaempresayservicios.blogspot.com/p/servicios-tecnologicos.html">Servicios Tecnologicos</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="https://sena.edu.co/es-co/Paginas/default.aspx">SENA comunica</a></li> -->
+                                    <img class="logo_ost" src="<?php echo base_url(); ?>assets/images/Icono OST.png">
+                                    <a href="#" class="btn btn-lg" target="_blank">
+                                    <i class="bi bi-facebook facebook-icon"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-lg" target="_blank">
+                                    <i class="bi bi-youtube youtube-icon"></i>
+                                    </a>
+                        
+                                    <img class="logo_sena" src="<?php echo base_url(); ?>assets/images/logo.png">
                                     <style>
-                                        .nav-item{
+                                        .nav-item {
                                             font-weight: bolder !important;
+                                        }
 
+                                        .logo_ost {
+                                            max-width: 100px;
+                                            height: 50px;
+                                            margin-top: 20px;
+                                          
+                                        }
+                                        .logo_sena{
+                                            max-width: 160px;
+                                            height: 90px;
+                                            margin-top: -2px;
+                                        }
+                                        @media (max-width: 582px) {
+                                            .logo_ost{
+                                                margin-top: 5px;
+                                            }
                                         }
                                     </style>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    
+                    <style>
+                        .facebook-icon, 
+                        .youtube-icon,
+                        .pagina-icon,
+                        .whatsapp-icon {
+                            color: white !important;
+                            font-size: 2.5rem;
+                        }
+                        .gx-4{
+                            margin-left: 1.3rem !important;
+                        }
+                    </style>
                     <?php $this->load->view('admin/auth/includes/_footer_auth.php') ?>

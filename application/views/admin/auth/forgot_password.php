@@ -19,13 +19,60 @@
                 <!-- content @s -->
                 <div class="nk-content ">
                     <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
-                        <div class="brand-logo pb-4 text-center">
+                    <div class="brand-logo pb-0 text-center logo-organizacion">
                             <a href="<?php echo base_url(); ?>" class="logo-link">
-                                <img class="logo-light logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo.png" srcset="<?php echo base_url(); ?>assets/images/logo2x.png 2x" alt="logo">
-                                <img class="logo-dark logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark.png" srcset="<?php echo base_url(); ?>assets/images/logo-dark2x.png 2x" alt="logo-dark">
+                                <img class="logo-light logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo2x.png 2x" alt="logo">
+                                <img class="logo-dark logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo-dark2x.png 2x" alt="logo-dark">
                             </a>
-                        </div>
+                            <p>Servicios <br>Tecnologicos</p>
+                            <img src="<?php echo base_url() ?>assets/images/line.png" class="lineaLogoIcon">
+                            <p>Tecnoparque <br>Nodo Neiva</p>
+                            <style>
+                                .logo-img-lg {
+                                    max-width: 100px !important;
+                                    width: 100px !important;
+                                    max-height: 100px !important;
+                                    position: relative;
+                                    top: 2.5em !important;
+                                }
 
+
+                                @media (max-width: 500px) {
+                                    .logo-img-lg {
+                                        max-width: 70px !important;
+                                        width: 60px !important;
+                                        max-height: 70px !important;
+                                        position: relative;
+                                        top: -0.2em !important;
+                                    }
+                                }
+
+                                .logo-organizacion {
+                                    display: flex;
+                                    flex-direction: row;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+
+                                .logo-organizacion p {
+                                    font-size: 16px;
+                                    font-family: Nunito, sans-serif;
+                                    font-weight: bold !important;
+                                    line-height: normal;
+                                    color: black !important;
+                                    font-weight: 900 !important;
+                                }
+
+                                .lineaLogoIcon {
+                                    height: 1.8em;
+                                    width: 2.5em;
+                                    scale: 2.5;
+                                    position: relative;
+                                    top: -0.5em;
+
+                                }
+                            </style>
+                        </div>
                         <div class="card card-bordered">
                             <style>
                                 .card.card-bordered {
