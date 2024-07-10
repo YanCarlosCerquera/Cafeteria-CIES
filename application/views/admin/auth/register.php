@@ -149,7 +149,7 @@
 
                                 <?php echo form_close(); ?><!-- form end -->
 
-                                <div class="form-note-s2 text-center pt-4"> ¿Ya tienes una cuenta? <a href="<?php echo base_url(); ?>"><strong>Inicia la sesión</strong></a>
+                                <div class="form-note-s2 text-center pt-4"> ¿Ya tienes una cuenta? <a href="<?php echo base_url(); ?>inicio-sesion"><strong>Inicia la sesión</strong></a>
                                 </div>
                                 <style>
                                     .form-note-s2 {

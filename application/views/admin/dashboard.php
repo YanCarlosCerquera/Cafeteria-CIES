@@ -149,12 +149,18 @@
                                                                         <div class="row">
                                                                             <div class="col-6">
                                                                                 <span class="h4 fw-500" id="deviceDS18B20TempCG_<?php echo $device->serialnumber ?>">-</span><span class="h4 fw-500"></span>
-                                                                                <select name="variable1" id="variable1-select" onchange="saveSelectedVariable('variable1');reloadPage();">
+                                                                                <select name="variable1" id="variable1-select_<?php echo $device->serialnumber ?>" onchange="saveSelectedVariable('variable1', '<?php echo $device->serialnumber ?>');reloadPage();">
                                                                                     <option value="temperature">TEMPERATURA</option>
                                                                                     <option value="humidity">HUMEDAD</option>
                                                                                     <option value="ph">PH</option>
                                                                                     <option value="pressure">PRESIÓN</option>
-                                                                                    <option value="water-flow">FLUJO DE AGUA</option>
+                                                                                    <option value="luz">INTENSIDAD DE LUZ</option>
+                                                                                    <option value="co2">CO2</option>
+                                                                                    <option value="peso">PESO</option>
+                                                                                    <option value="oxigeno">OXIGENO DISUELTO</option>
+                                                                                    <option value="corriente">CORRIENTE</option>
+                                                                                    <option value="voltaje">VOLTAJE</option>
+                                                                                    <option value="sonido">SONIDO</option>
                                                                                 </select>
                                                                                 <style>
                                                                                     select {
@@ -169,6 +175,7 @@
                                                                                         font-weight: 700;
                                                                                         color: #0fac81;
                                                                                     }
+
                                                                                     @media (max-width: 600px) {
                                                                                         select {
                                                                                             font-size: 0.6rem;
@@ -178,38 +185,50 @@
                                                                             </div>
                                                                             <div class="col-6">
                                                                                 <span class="h4 fw-500" id="deviceDS18B20TempFG_<?php echo $device->serialnumber ?>">-</span><span class="h4 fw-500"></span>
-                                                                                <select name="variable2" id="variable2-select" onchange="saveSelectedVariable('variable2');reloadPage();">
+                                                                                <select name="variable2" id="variable2-select_<?php echo $device->serialnumber ?>" onchange="saveSelectedVariable('variable2', '<?php echo $device->serialnumber ?>');reloadPage();">
                                                                                     <option value="temperature">TEMPERATURA</option>
                                                                                     <option value="humidity">HUMEDAD</option>
                                                                                     <option value="ph">PH</option>
                                                                                     <option value="pressure">PRESIÓN</option>
                                                                                     <option value="water-flow">FLUJO DE AGUA</option>
+                                                                                    <option value="luz">INTENSIDAD DE LUZ</option>
+                                                                                    <option value="co2">CO2</option>
+                                                                                    <option value="peso">PESO</option>
+                                                                                    <option value="oxigeno">OXIGENO DISUELTO</option>
+                                                                                    <option value="corriente">CORRIENTE</option>
+                                                                                    <option value="voltaje">VOLTAJE</option>
+                                                                                    <option value="sonido">SONIDO</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <script>
-                                                                    function saveSelectedVariable(variableId) {
-                                                                        var select = document.getElementById(variableId + "-select");
+                                                                    function saveSelectedVariable(variableId, serialnumber) {
+                                                                        var select = document.getElementById(variableId + "-select_" + serialnumber);
                                                                         var selectedVariable = select.options[select.selectedIndex].text;
-                                                                        localStorage.setItem(variableId + "-selectedVariable", selectedVariable);
+                                                                        localStorage.setItem(variableId + "-selectedVariable_" + serialnumber, selectedVariable);
                                                                     }
 
                                                                     document.addEventListener("DOMContentLoaded", function() {
-                                                                        var variableIds = ["variable1", "variable2"];
+                                                                        var devices = <?php echo json_encode($devices); ?>;
 
-                                                                        variableIds.forEach(function(variableId) {
-                                                                            var savedVariable = localStorage.getItem(variableId + "-selectedVariable");
-                                                                            if (savedVariable) {
-                                                                                var select = document.getElementById(variableId + "-select");
-                                                                                for (var i = 0; i < select.options.length; i++) {
-                                                                                    if (select.options[i].text === savedVariable) {
-                                                                                        select.selectedIndex = i;
-                                                                                        break;
+                                                                        devices.forEach(function(device) {
+                                                                            var serialnumber = device.serialnumber;
+                                                                            var variableIds = ["variable1", "variable2"];
+
+                                                                            variableIds.forEach(function(variableId) {
+                                                                                var savedVariable = localStorage.getItem(variableId + "-selectedVariable_" + serialnumber);
+                                                                                if (savedVariable) {
+                                                                                    var select = document.getElementById(variableId + "-select_" + serialnumber);
+                                                                                    for (var i = 0; i < select.options.length; i++) {
+                                                                                        if (select.options[i].text === savedVariable) {
+                                                                                            select.selectedIndex = i;
+                                                                                            break;
+                                                                                        }
                                                                                     }
                                                                                 }
-                                                                            }
+                                                                            });
                                                                         });
                                                                     });
 

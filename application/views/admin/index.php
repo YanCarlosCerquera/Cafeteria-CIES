@@ -56,7 +56,6 @@
               left: -0em !important;
             }
           }
-          
         </style>
       </div>
       <nav id="navbar" class="navbar">
@@ -95,35 +94,50 @@
     <div class="icon-boxes position-relative">
       <div class="container position-relative">
         <div class="row gy-4 mt-5">
-          <div class="col-xl-4 col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-xl-3 col-md-3" data-aos="fade-up" data-aos-delay="100">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-gear"></i></div>
               <h4 class="title">
                 <a class="stretched-link">Linea de ingeniería y Diseño</a>
               </h4>
               <h6>
-                <a class="stretched-link">Diseño de productos, desde la conceptual hasta la fabricación
-                  funcionales de herramientas, maquinaria, y productos de consumo</a>
+                <a class="stretched-link">Esta línea está enfocada al diseño mecánico, diseño de productos, sistemas CAD/CAM/CAE, optimización topológica, 
+                  prototipado rápido y procesos de manufactura avanzada, ingeniería inversa y análisis dimensional, prototipado 3d e impresión a láser.</a>
               </h6>
             </div>
           </div>
 
-          <div class="col-xl-4 col-md-4 card-two" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-xl-3 col-md-3 card-two" data-aos="fade-up" data-aos-delay="200">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-headset-vr"></i></div>
               <h2 class="title">
                 <a class="stretched-link">Linea de Técnologias Virtuales</a>
               </h2>
               <h6>
-                <a class="stretched-link">Desarrolo de sistemas informaticos, desarrollo y diseño de videojuegos,
-                  producción de contenidos 2D y 3D, animación digital, realidad virtual y aumentada, inteligencia
-                  artificial y computacional.
+                <a class="stretched-link">Esta línea está enfocada al desarrollo de aplicaciones web, móviles, inteligencia artificial, realidad aumentada, 
+                  sistemas de información geográfica, seguridad informática y creación de entornos virtuales
+			
+
                 </a>
               </h6>
             </div>
           </div>
 
-          <div class="col-xl-4 col-md-4" data-aos="fade-up" data-aos-delay="500">
+          <div class="col-xl-3 col-md-3 card-two" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-headset-vr"></i></div>
+              <h2 class="title">
+                <a class="stretched-link">BIOTECNOLOGIA Y NANOTECNOLOGIA</a>
+              </h2>
+              <h6>
+                <a class="stretched-link">Esta línea está enfocada al trabajo de la agroindustria alimentaria, biotecnología vegetal, biotecnología molecular aplicada a plantas, animales y microorganismos.
+                </a>
+              </h6>
+            </div>
+          </div>
+
+
+          <div class="col-xl-3 col-md-3" data-aos="fade-up" data-aos-delay="500">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-broadcast-pin"></i></div>
               <h4 class="title">
@@ -149,7 +163,7 @@
         <div class="section-header">
           <h2>Acerca del proyecto</h2>
 
-          <p>Se ha creado un innovador dashboard diseñado específicamente para la visualización de variables atmosféricas. Este
+          <p>Se ha creado un innovador dashboard diseñado específicamente para la visualización de variables provenientes de dispositivos IoT. Este
             sistema está meticulosamente estructurado para facilitar su uso a cualquier talento en el Tecnoparque Nodo
             Neiva, brindando a los usuarios la capacidad de visualizar de manera eficiente los datos recopilados por sus
             proyectos de IoT. Este dashboard no solo representa una herramienta tecnológica avanzada, sino también un
@@ -163,7 +177,7 @@
 
         <div class="row gy-4">
           <div class="col-lg-4">
-            <img src="Assets/Img/prototipo.jpeg" class="img-fluid rounded-4 mb-4 about-img" alt="Prototipo" />
+            <img src="Assets/Img/prototipo.jpg" class="img-fluid rounded-4 mb-4 about-img" alt="Prototipo" />
           </div>
           <div class="col-lg-8">
             <div class="content ps-0 ps-lg-5">
@@ -191,14 +205,12 @@
                   de manera mas profunda, permitiendo asi una toma de deción segura en base a la data.
                 </li>
                 <li>
-                  <i class="bi bi-4-square"></i> Se ha dispuesto el uso del FTP del server para el envio de los datos desde cada uno de los
-                  proyectos IoT que se alojen en el presente dashboard, lo cual permite un medio de comunicación entre el dispositivo y el
-                  presente desarrollo, garantizando la disponibilidad, integridad y seguridad de la data transmitida.
+                  <i class="bi bi-4-square"></i> Se ha dispuesto el uso del protocolo MQTT, el cual permite la conexión de hasta 100.000 dispositivos, los cuales 
+                  envian los datos a la plataforma bajo el modelo suscripción, publicación y topicos.
                 </li>
                 <li>
-                  <i class="bi bi-5-square"></i> Se desarrollo un Socket, el cual permite el almacenamiento de la información
-                  recibida por el FTP del servidor, a la base de datos, garantizando el correcto almacenamiento de la información
-                  dejandola a disposición del usuario, para que esta pueda ser consutada en cualquier lugar y momento.
+                  <i class="bi bi-5-square"></i> Se desarrollo un sistema de alertas de conexión y desconexión de dispositivos via telegram y correo electrónico que le 
+                  permite al usuario conocer el estado de cada uno de sus dispositivos en tiempo real.
                 </li>
               </ul>
             </div>
@@ -214,7 +226,7 @@
         <div class="clients-slider swiper container-carrusel2">
           <div class="swiper-wrapper align-items-center container-carrusel2">
             <div class="swiper-slide img-carrusel2">
-              <img src="Assets/Img/rise/prototipo1.png" class="img-fluid" alt="" />
+              <img src="Assets/Img/rise/prototipo1.jpg" class="img-fluid" alt="" />
             </div>
             <div class="swiper-slide img-carrusel2">
               <img src="Assets/Img/rise/prototipo2.jpg" class="img-fluid" alt="" />
@@ -226,7 +238,7 @@
               <img src="Assets/Img/rise/prototipo4.jpg" class="img-fluid" alt="" />
             </div>
             <div class="swiper-slide img-carrusel2">
-              <img src="Assets/Img/rise/prototipo1.png" class="img-fluid" alt="" />
+              <img src="Assets/Img/rise/prototipo1.jpg" class="img-fluid" alt="" />
             </div>
             <div class="swiper-slide img-carrusel2">
               <img src="Assets/Img/rise/prototipo2.jpg" class="img-fluid" alt="" />
@@ -272,15 +284,9 @@
                 </h3>
                 <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    Es un programa de
-                    innovación tecnológica del
-                    SENA, que actúa como
-                    acelerador para el desarrollo
-                    de proyectos de I+D+I
-                    materializados en prototipos
-                    funcionales, promoviendo el
-                    emprendimiento de base
-                    tecnológica
+                  La Red Tecnoparque Colombia actúa como acelerador para el desarrollo de proyectos de I+D+i 
+                  materializados en prototipos funcionales en cuatro líneas tecnológicas, desde las que promueven el emprendimiento 
+                  de base tecnológica: Biotecnología y Nanotecnología, Ingeniería y diseño, Electrónica y Telecomunicaciones, y Tecnologías Virtuales.
                   </div>
                 </div>
               </div>
@@ -294,9 +300,9 @@
                 </h3>
                 <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    Residentes de Colombia con
-                    potencial para la concepción
-                    de sus ideas innovadoras
+                  Somos un programa de innovación tecnológica del Servicio Nacional de Aprendizaje dirigido a todos los Colombianos, 
+                  que actúa como acelerador para el desarrollo de proyectos de I+D+i materializados en prototipos funcionales y productos de primera línea en las cuatro líneas tecnológicas, que promuevan el emprendimiento de base tecnológica, 
+                  la productividad de las empresas, la transferencia de conocimientos y la asimilación de nuevos productos y servicios.
                   </div>
                 </div>
               </div>
@@ -310,11 +316,9 @@
                 </h3>
                 <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    * Asesoría de expertos por
-                    línea tecnológica<br>
-                    * Laboratorios especializados<br>
-                    * Alianzas estratégicas para
-                    potencializar proyectos
+                  Si estás interesado en materializar tus ideas en el Tecnoparque, el primer paso es registrarla en nuestra página web: https://redtecnoparque.com/. 
+                  Una vez inscrito, recibirás asesoramiento personalizado por parte de un equipo de expertos en diversas áreas, 
+                  así como acceso a la infraestructura tecnológica del Tecnoparque para llevar a cabo tu proyecto.
                   </div>
                 </div>
               </div>
@@ -331,7 +335,8 @@
                     * Ingeniería y Diseño <br>
                     * Tecnologías Virtuales <br>
                     * Electrónica y
-                    Telecomunicaciones
+                    Telecomunicaciones <br>
+                    * Biotecnología y nanotecnología
                   </div>
                 </div>
               </div>
