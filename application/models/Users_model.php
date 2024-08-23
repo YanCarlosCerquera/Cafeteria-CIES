@@ -6,7 +6,7 @@ class Users_model extends CI_Model{
         $this->db->where('email', $email);
         $this->db->where('password', $password);
         $this->db->where('status', "1");
-        $res = $this->db->get("mqtt_user");
+        $res = $this->db->get("users");
 
         if ($res->num_rows() > 0) {
             return $res->row();
@@ -19,13 +19,13 @@ class Users_model extends CI_Model{
     {
         $data['last_seen'] = date('Y-m-d H:i:s');
         $this->db->where('id', $id);
-        return $this->db->update('mqtt_user', $data);
+        return $this->db->update('users', $data);
     }
     // nombre completo del usuario BD
     public function get_user_fullname($id)
     {
         $this->db->where('id', $id);
-        $user = $this->db->select('fullname')->from('mqtt_user')->get()->row();
+        $user = $this->db->select('fullname')->from('users')->get()->row();
         return html_escape($user->fullname);
     }
     // username del usuario logeado sesión
@@ -68,7 +68,7 @@ class Users_model extends CI_Model{
     public function get_logged_user()
     {
         if ($this->session->userdata('login') == true) {
-            $query = $this->db->get_where('mqtt_user', array('id' => $this->get_user_id()));
+            $query = $this->db->get_where('users', array('id' => $this->get_user_id()));
             return $query->row();
         }
     }
@@ -78,7 +78,6 @@ class Users_model extends CI_Model{
         // eliminar la data de sessión
         $this->session->unset_userdata('id');
         $this->session->unset_userdata('username');
-        $this->session->unset_userdata('mqtt_token');
         $this->session->unset_userdata('user_token');
         $this->session->unset_userdata('fullname');
         $this->session->unset_userdata('email');
@@ -133,9 +132,9 @@ class Users_model extends CI_Model{
     //get user by username
     public function get_user_by_username($username)
     {
-        $this->db->select('id, telegram_enable_send, email_enable_send, telegram_ChatId');
+        $this->db->select('id');
         $this->db->where('username', $username);
-        $query = $this->db->get('mqtt_user');
+        $query = $this->db->get('users');
         return $query->row();
     }
     //check if email is unique
@@ -165,7 +164,7 @@ class Users_model extends CI_Model{
     public function get_user_by_email($email)
     {
         $this->db->where('email', $email);
-        $query = $this->db->get('mqtt_user');
+        $query = $this->db->get('users');
         return $query->row();
     }
     // add user
@@ -178,9 +177,11 @@ class Users_model extends CI_Model{
         $data['token'] = generate_unique_id();
         $data['slug'] = $this->generate_uniqe_slug($data["fullname"]);
         $data['last_seen'] = date('Y-m-d H:i:s');
-        $data["created"] = date('Y-m-d H:i:s');
 
-        return $this->db->insert('mqtt_user', $data);
+    if ($data['is_superuser'] == 0) {
+        $data['status'] = 0; 
+}
+        return $this->db->insert('users', $data);
     }
     //generate uniqe slug
     public function generate_uniqe_slug($username)
@@ -203,16 +204,15 @@ class Users_model extends CI_Model{
     //get user by slug
     public function get_user_by_slug($slug)
     {
-        $query = $this->db->get_where('mqtt_user', array('slug' => $slug));
+        $query = $this->db->get_where('users', array('slug' => $slug));
         return $query->row();
     }
 
     //get user by id
     public function get_user($id)
     {
-        $this->db->select("u.*, COUNT(d.userid) as total");
-        $this->db->from("mqtt_user u");
-        $this->db->join("mqtt_devices d", "u.id = d.userid", "left");
+        $this->db->select("u.*");
+        $this->db->from("users u");;
         $this->db->where('u.id', $id);
         $this->db->group_by('u.id');
         $query = $this->db->get();
@@ -223,7 +223,7 @@ class Users_model extends CI_Model{
     public function get_user_by_token($token)
     {
         $this->db->where('token', $token);
-        $query = $this->db->get('mqtt_user');
+        $query = $this->db->get('users');
         return $query->row();
     }
     // Actualizar el token del usuario en la base de datos
@@ -231,7 +231,7 @@ class Users_model extends CI_Model{
     {
         $data = array('token' => $token);
         $this->db->where('id', $user_id);
-        $this->db->update('mqtt_user', $data);
+        $this->db->update('users', $data);
     }
 
     //change password input values
@@ -257,7 +257,7 @@ class Users_model extends CI_Model{
             );
             //change password
             $this->db->where('id', $user->id);
-            return $this->db->update('mqtt_user', $data);
+            return $this->db->update('users', $data);
         }
         return false;
     }  
@@ -293,7 +293,7 @@ class Users_model extends CI_Model{
             delete_file_from_server($user->photo);
         }
         $this->db->where('id', $user_id);
-        return $this->db->update('mqtt_user', $data);
+        return $this->db->update('users', $data);
     }
 
     //update user 
@@ -302,7 +302,7 @@ class Users_model extends CI_Model{
         // Modificar el slug en la data antes de insertar el usuario
         $data['slug'] = $this->generate_uniqe_slug($data["fullname"]);
         $this->db->where('id', $id);
-        return $this->db->update('mqtt_user', $data);
+        return $this->db->update('users', $data);
     }
 
     //change password
@@ -323,7 +323,7 @@ class Users_model extends CI_Model{
                 'password' => hash('sha256', $data['password'], FALSE)
             );
             $this->db->where('id', $user->id);
-            return $this->db->update('mqtt_user', $data);
+            return $this->db->update('users', $data);
         } else {
             return false;
         }
@@ -335,7 +335,7 @@ class Users_model extends CI_Model{
         $user = $this->get_user($id);
         if (!empty($user)) {
             $this->db->where('id', $id);
-            return $this->db->delete('mqtt_user');
+            return $this->db->delete('users');
         } else {
             return false;
         }
@@ -359,7 +359,7 @@ class Users_model extends CI_Model{
      //get users
      public function get_users()
      {
-         $query = $this->db->get('mqtt_user');
+         $query = $this->db->get('users');
          return $query->result();
      }
  
@@ -372,7 +372,7 @@ class Users_model extends CI_Model{
                  'status' => 0
              );
              $this->db->where('id', $id);
-             return $this->db->update('mqtt_user', $data);
+             return $this->db->update('users', $data);
          } else {
              return false;
          }
@@ -387,7 +387,7 @@ class Users_model extends CI_Model{
                  'status' => 1
              );
              $this->db->where('id', $id);
-             return $this->db->update('mqtt_user', $data);
+             return $this->db->update('users', $data);
          } else {
              return false;
          }

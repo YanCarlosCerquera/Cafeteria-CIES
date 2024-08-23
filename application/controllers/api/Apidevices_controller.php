@@ -114,7 +114,7 @@ class Apidevices_controller extends \Restserver\Libraries\REST_Controller // CI_
                     'deviceCpuTempC'     => (float)$payload["data"]['deviceCpuTempC'],
                     'deviceDS18B20TempC' => (float)$payload["data"]['deviceDS18B20TempC'],
                     'deviceDS18B20TempF' => (float)$payload["data"]['deviceDS18B20TempF'],
-                    'deviceRestarts'     => (int)$payload["data"]['deviceRestarts'],
+                    'deviceRestarts'     => (float)$payload["data"]['deviceRestarts'],
                     'wifiRssiStatus'     => intval($payload["data"]['wifiRssiStatus']),
                     'wifiQuality'        => (int)$payload["data"]['wifiQuality'],
                     'deviceId'           => (int)$device->id,

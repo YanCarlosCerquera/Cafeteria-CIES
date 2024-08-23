@@ -6,7 +6,7 @@
 <body class="nk-body ui-rounder npc-default pg-auth">
     <style>
         .nk-body {
-            background-image: url('<?php echo base_url(); ?>assets/images/fondo_login(3).jpg');
+            background-image: url('<?php echo base_url(); ?>assets/images/fondo_login(5).jpg');
             background-size: cover;
             background-position: center;
         }

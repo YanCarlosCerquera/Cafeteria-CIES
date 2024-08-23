@@ -10,33 +10,28 @@ class admin_controller extends Core_Controller
         if (!is_user()) {
             redirect(base_url());
         }
-        $this->load->model('Devices_model');  
+        $this->load->model('');  
     }
 
     // vista del Dashboard
     public function index(){
-		$data['title'] = "Dashboard";
+		$data['title'] = "Inicio";
 		$data['application_name'] = $this->settings->application_name;
 		$data['description'] = $this->settings->site_description;
 		$data['keywords'] = $this->settings->keywords;
         // data de cards
-        $data['status'] = $this->Devices_model->get_status_for_dashboard();
-        // ultimas conexiones
-        $data['last_device'] = $this->Devices_model->get_last_register();
-		$data['last_online'] = $this->Devices_model->get_last_online();
-		$data['last_offline'] = $this->Devices_model->get_last_offline();
-		$data['last_disable'] = $this->Devices_model->get_last_disable();
-        // dispositivos
-        $data['devices'] = $this->Devices_model->get_devices_for_dashboard();
+        
         // eventos
         $username = $this->session->userdata("username");
 		$fullname = $this->session->userdata("fullname");
         $data['activity_logs'] = get_activity_logs($username, $fullname, 10);
 
 
-        $this->load->view("admin/dashboard", $data);
+        $this->load->view("admin/inicio", $data);
 
     }   
+
+  
 
     // vista del Dashboard
     public function activity_logs()

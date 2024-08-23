@@ -57,14 +57,14 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-3 offset-0">
                                                     <div class="form-group">
-                                                        <label class="form-label">Nombre completo (Opcional)</label>
+                                                        <label class="form-label">Nombre completo</label>
                                                         <span class="form-note">Nombre y Apellidos del nuevo usuario</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7 mb-3">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input type="text" autocomplete="off" class="form-control form-control-lg" id="fullname" name="fullname" placeholder="Nombre completo">
+                                                            <input type="text" autocomplete="off" class="form-control form-control-lg" id="fullname" name="fullname" placeholder="Nombre completo" required="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -73,14 +73,14 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-3 offset-0">
                                                     <div class="form-group">
-                                                        <label class="form-label">Usuario (MQTT)</label>
-                                                        <span class="form-note">Usuario para la conexión MQTT</span>
+                                                        <label class="form-label">Usuario</label>
+                                                        <span class="form-note">Nombre de usuario para la plataforma</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7 mb-3">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input type="text" autocomplete="off" class="form-control form-control-lg" id="username" name="username" placeholder="Usuario (MQTT)" required="">
+                                                            <input type="text" autocomplete="off" class="form-control form-control-lg" id="username" name="username" placeholder="Usuario" required="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -106,7 +106,7 @@
                                                 <div class="col-lg-3 offset-0">
                                                     <div class="form-group">
                                                         <label class="form-label">Contraseña</label>
-                                                        <span class="form-note">Contraseña para (Login/MQTT)</span>
+                                                        <span class="form-note">Contraseña para Login</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7 mb-3">

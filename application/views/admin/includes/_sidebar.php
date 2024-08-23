@@ -4,11 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <input type="hidden" id="base_url" value="<?php echo base_url() ?>">
 
 <input type="hidden" id="username" value="<?php echo $this->session->userdata("username") ?>">
-<input type="hidden" id="mqtt_token" value="<?php echo $this->session->userdata("mqtt_token") ?>">
 
-<input type="hidden" id="mqtt_host" value="<?php echo $this->general_settings->mqtt_host ?>">
-<input type="hidden" id="mqtt_port" value="<?php echo $this->general_settings->mqtt_port ?>">
-<input type="hidden" id="mqtt_protocol" value="<?php echo $this->general_settings->mqtt_protocol ?>">
 
 
 <div class="nk-sidebar" data-content="sidebarMenu">
@@ -63,50 +59,56 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
     <div class="nk-sidebar-main is-light">
         <div class="nk-sidebar-inner" data-simplebar>
             <div class="nk-menu-content" data-content="navDashboard">
-                <h5 class="title">IoT Tecnoparque</h5>
+                <h5 class="title">Cafeteria CIES</h5>
                 <ul class="nk-menu">
+                    <!-- Vista inicio -->
                     <li class="nk-menu-item active current-page">
-                        <a href="<?php echo base_url() ?>admin/dashboard" class="nk-menu-link">
+                        <a href="<?php echo base_url() ?>admin/inicio" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
-                            <span class="nk-menu-text">Tablero principal</span>
+                            <span class="nk-menu-text">Inicio</span>
+                        </a>
+                    </li>
+
+                    <li class="nk-menu-item active current-page">
+                        <a href="<?php echo base_url() ?>admin/inventario" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-coffee"></em></span>
+                            <span class="nk-menu-text">Inventario de productos</span>
                         </a>
                     </li><!-- .nk-menu-item -->
 
                     <!-- .nk-menu-item -->
+
+                    
                     <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-meter"></em></span>
-                            <span class="nk-menu-text">Dispositivos</span>
+                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-money"></em></span>
+                            <span class="nk-menu-text">Ventas</span>
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
-                                <a href="<?php echo base_url() ?>admin/devices-add" class="nk-menu-link"><span class="nk-menu-text">Agregar</span></a>
+                                <a href="<?php echo base_url() ?>admin/ventas-add" class="nk-menu-link"><span class="nk-menu-text">Registrar Venta</span></a>
                             </li>
                             <li class="nk-menu-item">
-                                <a href="<?php echo base_url() ?>admin/devices-list" class="nk-menu-link"><span class="nk-menu-text">Tabla</span></a>
+                                <a href="<?php echo base_url() ?>admin/ventas" class="nk-menu-link"><span class="nk-menu-text">Reportes de ventas</span></a>
                             </li>
-                            <?php 
-                             $devices = get_all_devices();
-                            ?>
-                            <li class="nk-menu-item">
-                                <a href="#" class="nk-menu-link nk-menu-toggle" data-original-title="" title=""><span class="nk-menu-text">Lista</span></a>
-                                <ul class="nk-menu-sub" style="display: block;">
-                                <?php if (!empty($devices)) : ?>
-                                    <?php foreach ($devices as $device) : ?>
-                                    <li class="nk-menu-item">
-                                        <a  class="nk-menu-link" data-original-title="<?php echo $device->name ?>" title="<?php echo $device->name ?>"
-                                            href="<?php echo base_url().'admin/devices/view/'.get_serial64($device->serialnumber); ?>">
-                                        <span class="nk-menu-text"><?php echo $device->serialnumber ?></span>
-                                        </a>
-                                    </li>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                                </ul><!-- .nk-menu-sub -->
-                            </li>
-                        </ul><!-- .nk-menu-sub -->
-                    </li>
+                        </ul>
+                    </li><!-- .nk-menu-item -->
 
-                    
+                    <li class="nk-menu-item has-sub">
+                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-user-add"></em></span>
+                            <span class="nk-menu-text">Clientes</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="<?php echo base_url() ?>admin/clientes-add" class="nk-menu-link"><span class="nk-menu-text">Registrar Cliente</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="<?php echo base_url() ?>admin/clientes_list" class="nk-menu-link"><span class="nk-menu-text">Lista de clientes</span></a>
+                            </li>
+                        </ul>
+                    </li><!-- .nk-menu-item -->
+
                     <li class="nk-menu-item has-sub">
                     <li class="nk-menu-item">
                         <a href="<?php echo base_url(); ?>admin/user-profile/<?php echo $this->session->userdata("id") ?>" class="nk-menu-link">
@@ -153,12 +155,6 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
                             <a href="<?php echo base_url() . 'admin/email-settings' ?>" class="nk-menu-link">
                                 <span class="nk-menu-icon"><em class="icon ni ni-mail-fill"></em></span>
                                 <span class="nk-menu-text">Correo Electronico</span>
-                            </a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="<?php echo base_url() . 'admin/mqtt-settings' ?>" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-cloud-fill"></em></span>
-                                <span class="nk-menu-text">Broker MQTT</span>
                             </a>
                         </li>
                     </ul><!-- .nk-menu -->

@@ -77,7 +77,7 @@ class Auth_controller extends Core_controller
                 // salvamos el log en la base de datos.
                 log_activity('Usuario logeado [User Id: ' . $res->id . ', Is super_user: ' . ($res->is_superuser == true ? 'Yes' : 'No') . ', IP: ' . $this->input->ip_address() . ']', 'login');
                 // redireccionamos al dashboard
-                redirect(base_url() . 'admin/dashboard');
+                redirect(base_url() . 'admin/inicio');
             }
         }
     }

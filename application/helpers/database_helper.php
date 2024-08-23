@@ -3,7 +3,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 // almacenar logs de actividad
-function log_activity($description, $type = 'unknow', $deviceid = null, $userid = null)
+function log_activity($description, $type = 'unknow', $userid = null)
 {
     $CI = &get_instance();
 
@@ -11,7 +11,6 @@ function log_activity($description, $type = 'unknow', $deviceid = null, $userid 
         'description' => $description,
         'date'        => date('Y-m-d H:i:s'),
         'type'        => $type,
-        'deviceId'    => $deviceid,
     ];
 
     if ($userid != null && is_numeric($userid)) {
@@ -127,26 +126,4 @@ function clear_data_by_table($table)
     } else {
         return false;
     } 
-}
-
-// retorne todos los dispositivos
-function get_all_devices(){
-    $CI  = &get_instance();
-    $CI->db->select('id, name, serialnumber')
-        ->from('mqtt_devices')
-        ->where('status', 1);
-    $CI->db->where('userid', $CI->session->userdata("id"));
-    $query = $CI->db->get();
-    return $query->result();
-}
-
-// logs de dispsitivos
-function get_device_activity_logs($deviceid, $limit)
-{
-    $CI  = &get_instance();
-    $CI->db->select('*');
-    $CI->db->order_by('id', 'desc');
-    $CI->db->where('deviceid', $deviceid);
-    $CI->db->limit($limit, 0);
-    return $CI->db->get('activity_log')->result();
 }

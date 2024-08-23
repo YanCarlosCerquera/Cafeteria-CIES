@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller']   = 'index_controller';
+$route['default_controller']   = 'auth_controller/cargar_login';
 $route['404_override']         = 'admin_controller/error404';
 $route['translate_uri_dashes'] = FALSE;
 $route['error-404']            = 'admin_controller/error404';
@@ -63,24 +63,47 @@ $route['forgot-password']       = 'auth_controller/forgot_password';
 $route['reset-password']        = 'auth_controller/reset_password';
 
 // Admin
-$route['admin/dashboard']                  = 'admin_controller';
+$route['admin/inicio']                  = 'admin_controller/inicio';
+$route['admin/inicio']                  = 'admin_controller';
 $route['admin/activity-logs']['GET']       = 'admin_controller/activity_logs';
 
 // Usuarios
 $route['admin/user-profile/(:num)']   = 'users_controller/profile/$1';
 $route['admin/user-add']['GET']       = 'users_controller/add_user';
 $route['admin/users']['GET']          = 'users_controller/users';
+$route['admin/users/delete/(:any)']['POST'] = 'users_controller/delete/$1';
+
 
 //Settings
 $route['admin/settings']['GET']           = 'settings_controller';
 $route['admin/email-settings']['GET']     = 'email_controller';
-$route['admin/mqtt-settings']['GET']      = 'settings_controller/mqtt_settings';
 
-// Devices
-$route['admin/devices-add']['GET']           = 'devices_controller/deviceAdd';
-$route['admin/devices-store']['POST']        = 'devices_controller/deviceStore';
-$route['admin/devices-list']['GET']          = 'devices_controller/deviceList';
-$route['admin/devices/view/(:any)']          = 'devices_controller/deviceView/$1';
+
+
+// Inventario 
+$route['admin/inventario']['GET']             = 'inventario_controller/inventario'; 
+$route['admin/inventario/create']['GET']      = 'inventario_controller/create';    
+$route['admin/inventario/create']['POST']     = 'inventario_controller/create';     
+$route['admin/inventario/edit/(:num)']['GET'] = 'inventario_controller/edit/$id'; 
+$route['admin/inventario/edit/(:num)']['POST'] = 'inventario_controller/edit/$id';  
+$route['admin/inventario/delete/(:num)']['POST'] = 'inventario_controller/delete/$id';
+
+
+
+$route['admin/ventas']['GET']           = 'ventas_register_controller/listar_ventas';
+$route['admin/ventas-add']['GET']           = 'ventas_controller/ventas_add';
+$route['admin/ventas-add/get_productos_por_categoria']['GET'] = 'ventas_controller/get_productos_por_categoria';
+$route['admin/registrar']['POST'] = 'ventas_register_controller/registerVenta';
+$route['admin/ventas/delete/(:any)']['POST'] = 'ventas_register_controller/delete/$1';
+$route['admin/ventas-detalles/(:any)']['GET'] = 'ventas_register_controller/detalle_venta/$1';
+
+
+
+$route['admin/clientes-add']['GET']           = 'clientes_controller/clientes';
+$route['clientes/registrar'] = 'clientes_controller/registrar_cliente';
+$route['admin/clientes_list']['GET']          = 'clientes_controller/listar_clientes';
+$route['admin/clientes_add/delete/(:any)']['POST'] = 'clientes_controller/delete/$1';
+
 
 
 // API para respuestas desde los recursos de EMQX.

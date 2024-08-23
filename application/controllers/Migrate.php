@@ -28,10 +28,10 @@ class Migrate extends CI_Controller
         $texto = <<<_END
         # Database Configuration
         DB_HOSTNAME="localhost"
-        DB_PORT="4000"
-        DB_USERNAME="adminiot"
-        DB_PASSWORD="adminiot"
-        DB_DATABASE="admin_iot"
+        DB_PORT="4002"
+        DB_USERNAME="administrador"
+        DB_PASSWORD="public"
+        DB_DATABASE="app_cafeteria"
         DB_DRIVER="mysqli"
         
         DB_MIGRATIONS=false

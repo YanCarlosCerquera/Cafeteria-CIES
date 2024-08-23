@@ -115,22 +115,9 @@
                                             <div class="card-full overflow-hidden card-inner">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <select name="variable1" id="variable1-select_<?php echo $device->serialnumber ?>" onchange="saveSelectedVariable('variable1', '<?php echo $device->serialnumber ?>');reloadPage();">
-                                                            <option value="temperature">TEMPERATURA</option>
-                                                            <option value="humidity">HUMEDAD</option>
-                                                            <option value="ph">PH</option>
-                                                            <option value="pressure">PRESIÓN</option>
-                                                            <option value="water-flow">FLUJO DE AGUA</option>
-                                                            <option value="luz">INTENSIDAD DE LUZ</option>
-                                                            <option value="co2">CO2</option>
-                                                            <option value="peso">PESO</option>
-                                                            <option value="oxigeno">OXIGENO DISUELTO</option>
-                                                            <option value="corriente">CORRIENTE</option>
-                                                            <option value="voltaje">VOLTAJE</option>
-                                                            <option value="sonido">SONIDO</option>
-                                                        </select>
+                                                    <span class="variable_name"><?php echo $device == NULL ? "-" : $device->variable1 . ' / ' . $device->unidad1; ?></span>
                                                         <style>
-                                                            select {
+                                                            .variable_name {
                                                                 max-width: 200px;
                                                                 width: 100%;
                                                                 padding: 6px;
@@ -147,7 +134,7 @@
                                                 </div>
                                                 <div class="card-inner text-center">
                                                     <div class="nk-knob text-center">
-                                                        <input type="text" class="knob-half" value="" data-fgColor="#0fac81" data-bgColor="#d9e5f7" data-min="-55" data-max="125" data-thickness=".07" data-width="120" data-height="115" id="deviceDS18B20TempCG_<?php echo $device == NULL ? '' : $device->serialnumber ?>">
+                                                    <input type="text" class="card-title border-0" style="font-size: 20px; color: black; font-weight: bold;" id="deviceDS18B20TempCG_<?php echo $device == NULL ? '' : $device->serialnumber ?>" value="<?php echo $device == NULL ? '' :  ' / ' . $device->unidad1 ?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,77 +146,56 @@
                                             <div class="card-full overflow-hidden card-inner">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <select name="variable2" id="variable2-select_<?php echo $device->serialnumber ?>" onchange="saveSelectedVariable('variable2', '<?php echo $device->serialnumber ?>');reloadPage();">
-                                                            <option value="temperature">TEMPERATURA</option>
-                                                            <option value="humidity">HUMEDAD</option>
-                                                            <option value="ph">PH</option>
-                                                            <option value="pressure">PRESIÓN</option>
-                                                            <option value="water-flow">FLUJO DE AGUA</option>
-                                                            <option value="luz">INTENSIDAD DE LUZ</option>
-                                                            <option value="co2">CO2</option>
-                                                            <option value="peso">PESO</option>
-                                                            <option value="oxigeno">OXIGENO DISUELTO</option>
-                                                            <option value="corriente">CORRIENTE</option>
-                                                            <option value="voltaje">VOLTAJE</option>
-                                                            <option value="sonido">SONIDO</option>
-                                                        </select>
-                                                        <style>
-                                                            select {
-                                                                max-width: 200px;
-                                                                width: 100%;
-                                                                padding: 6px;
-                                                                margin: 10px 0px 40px;
-                                                                font-size: 1.05rem;
-                                                                border: none;
-                                                                text-align: center;
-                                                                font-family: Nunito, sans-serif;
-                                                                font-weight: 700;
-                                                                color: #0fac81;
-                                                            }
-                                                        </style>
+                                                    <span class="variable_name"><?php echo $device == NULL ? "-" : $device->variable2 . ' / ' . $device->unidad2; ?></span>
                                                     </div>
                                                 </div>
                                                 <div class="card-inner text-center">
                                                     <div class="nk-knob text-center">
-                                                        <input type="text" class="knob-half" value="" data-fgColor="#816bff" data-bgColor="#d9e5f7" data-min="-67" data-max="257" data-thickness=".07" data-width="120" data-height="115" id="deviceDS18B20TempFG_<?php echo $device == NULL ? '' : $device->serialnumber ?>">
+                                                        <input type="text" class="card-title border-0" style="font-size: 20px; color: black; font-weight: bold;" id="deviceDS18B20TempFG_<?php echo $device == NULL ? '' : $device->serialnumber ?>" value="<?php echo $device == NULL ? '' :  ' / ' . $device->unidad2 ?>">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <script>
-                                        function saveSelectedVariable(variableId, serialnumber) {
-                                            var select = document.getElementById(variableId + "-select_" + serialnumber);
-                                            var selectedVariable = select.options[select.selectedIndex].text;
-                                            localStorage.setItem(variableId + "-selectedVariable_" + serialnumber, selectedVariable);
-                                        }
+                                    <div class="col-xxl-3 col-md-6">
+                                        <div class="card">
+                                            <div class="card-full overflow-hidden card-inner">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                    <span class="variable_name"><?php echo $device == NULL ? "-" : $device->variable3 . ' / ' . $device->unidad3; ?></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-inner text-center">
+                                                    <div class="nk-knob text-center">
+                                                        <input type="text" class="card-title border-0" style="font-size: 20px; color: black; font-weight: bold;" id="deviceCpuTempCG_<?php echo $device == NULL ? '' : $device->serialnumber ?>" value="<?php echo $device == NULL ? '' :  ' / ' . $device->unidad3 ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                        document.addEventListener("DOMContentLoaded", function() {
-                                            var serialnumber = "<?php echo $device->serialnumber; ?>";
-                                            var variableIds = ["variable1", "variable2"];
+                                    <div class="col-xxl-3 col-md-6">
+                                        <div class="card">
+                                            <div class="card-full overflow-hidden card-inner">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                    <span class="variable_name"><?php echo $device == NULL ? "-" : $device->variable4 . ' / ' . $device->unidad4; ?></span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-inner text-center">
+                                                    <div class="nk-knob text-center">
+                                                        <input type="text" class="card-title border-0" style="font-size: 20px; color: black; font-weight: bold;" id="deviceRestartsG_<?php echo $device == NULL ? '' : $device->serialnumber ?>" value="<?php echo $device == NULL ? '' :  ' / ' . $device->unidad4 ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                            variableIds.forEach(function(variableId) {
-                                                var savedVariable = localStorage.getItem(variableId + "-selectedVariable_" + serialnumber);
-                                                if (savedVariable) {
-                                                    var select = document.getElementById(variableId + "-select_" + serialnumber);
-                                                    for (var i = 0; i < select.options.length; i++) {
-                                                        if (select.options[i].text === savedVariable) {
-                                                            select.selectedIndex = i;
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            });
-                                        });
-
-                                        function reloadPage() {
-                                            window.location.reload();
-                                        }
-                                    </script>
+                                 
 
                                     <!-- Información -->
-                                    <div class="col-md-12 col-xxl-6">
+                                    <div class="col-md-12 col-xxl-12 text-center">
                                         <div class="card card-bordered h-100">
                                             <div class="card-inner border-bottom">
                                                 <div class="card-title-group">
@@ -279,17 +245,7 @@
                                                             <div class="amount"><?php echo $device == NULL ? '' : time_ago($device->lastseen); ?></div>
                                                         </div>
                                                     </li>
-                                                    <li class="item">
-                                                        <div class="thumb">
-                                                            <em class="icon ni ni-reload-alt"></em>
-                                                        </div>
-                                                        <div class="info">
-                                                            <div class="title"><span class="">Cantidad de reinicios:</span> </div>
-                                                        </div>
-                                                        <div class="total">
-                                                            <div class="amount"><span class="ml-auto" id="deviceRestartsG_<?php echo $device == NULL ? '' : $device->serialnumber ?>">-</span></div>
-                                                        </div>
-                                                    </li>
+                                                  
                                                     <li class="item">
                                                         <div class="thumb">
                                                             <em class="icon ni ni-wifi"></em>
@@ -312,17 +268,7 @@
                                                             <div class="amount"><span class="ml-auto" id="wifiQualityG_<?php echo $device == NULL ? '' : $device->serialnumber ?>">-</span>%</div>
                                                         </div>
                                                     </li>
-                                                    <li class="item">
-                                                        <div class="thumb">
-                                                            <em class="icon ni ni-hot"></em>
-                                                        </div>
-                                                        <div class="info">
-                                                            <div class="title"><span class="">Temperatura del CPU:</span> </div>
-                                                        </div>
-                                                        <div class="total">
-                                                            <div class="amount"><span class="ml-auto" id="deviceCpuTempCG_<?php echo $device == NULL ? '' : $device->serialnumber ?>">-</span>°C</div>
-                                                        </div>
-                                                    </li>
+                                                  
                                                     <li class="item">
                                                         <div class="thumb">
                                                             <em class="icon ni ni-clock"></em>
@@ -484,41 +430,27 @@
                                                             <tr>
                                                                 <th>MQTT ID</th>
                                                                 <th>Serial</th>
-                                                                <th class="text-center">Temp CPU (°C)</th>
-                                                                <th class="text-center" id="variable1">variable1</th>
-                                                                <th class="text-center" id="variable2">variable2</th>
-                                                                <th class="text-center">Reinicios</th>
+                                                                <th class="text-center"><?php echo $device == NULL ? "-" : $device->variable1; ?></th>
+                                                                <th class="text-center"><?php echo $device == NULL ? "-" : $device->variable2; ?></th>
+                                                                <th class="text-center"><?php echo $device == NULL ? "-" : $device->variable3; ?></th>
+                                                                <th class="text-center"><?php echo $device == NULL ? "-" : $device->variable4; ?></th>
                                                                 <th class="text-center">RSSI</th>
                                                                 <th class="text-center">WIFI (%)</th>
                                                                 <th class="text-center">Fecha y hora</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <script>
-                                                                document.addEventListener("DOMContentLoaded", function() {
-                                                                    var variableIds = ["variable1", "variable2"];
+                                                           
 
-                                                                    variableIds.forEach(function(variableId) {
-                                                                        var savedVariable = localStorage.getItem(variableId + "-selectedVariable");
-                                                                        var variableCell = document.getElementById(variableId);
-
-                                                                        if (savedVariable && variableCell) {
-                                                                            variableCell.textContent = savedVariable;
-                                                                        } else {
-                                                                            variableCell.textContent = "No seleccionado";
-                                                                        }
-                                                                    });
-                                                                });
-                                                            </script>
                                                             <?php if (!empty($device_data)) : ?>
                                                                 <?php foreach ($device_data as $data) : ?>
                                                                     <tr>
                                                                         <td><?php echo $data->deviceMqttId ?></td>
                                                                         <td><?php echo $data->deviceSerial ?></td>
-                                                                        <td class="text-center"><?php echo round($data->deviceCpuTempC, 2) ?></td>
-                                                                        <td class="text-center"><?php echo round($data->deviceDS18B20TempC, 2) ?></td>
-                                                                        <td class="text-center"><?php echo round($data->deviceDS18B20TempF, 2) ?></td>
-                                                                        <td class="text-center"><?php echo $data->deviceRestarts ?></td>
+                                                                        <td class="text-center"><?php echo round($data->deviceCpuTempC, 2) ?></td><p><?php echo $device->unidad1; ?></p>
+                                                                        <td class="text-center"><?php echo round($data->deviceDS18B20TempC, 2) ?><?php echo $device->unidad2; ?></td>
+                                                                        <td class="text-center"><?php echo round($data->deviceDS18B20TempF, 2) ?><?php echo $device->unidad3; ?></td>
+                                                                        <td class="text-center"><?php echo $data->deviceRestarts ?> <?php echo $device->unidad4; ?></td>
                                                                         <td class="text-center">
                                                                             <?php if ($data->wifiRssiStatus >= -76) : ?>
                                                                                 <?php echo '<span class="badge badge-primary">' . $data->wifiRssiStatus . '</span>' ?>
@@ -590,41 +522,17 @@
                                                                             <div class="form-note">Formato de fecha <code>yyyy-mm-dd</code></div>
                                                                         </div>
                                                                     </div>
-                                                                    <script>
-                                                                        document.addEventListener('DOMContentLoaded', function() {
-                                                                            // Obtener el valor almacenado en localStorage
-                                                                            var storedVariable1Name = localStorage.getItem('variable1-selectedVariable');
 
-                                                                            // Actualizar el texto de la opción si el valor existe en localStorage
-                                                                            if (storedVariable1Name) {
-                                                                                var optionVariable1 = document.getElementById('variable_1');
-                                                                                if (optionVariable1) {
-                                                                                    optionVariable1.textContent = storedVariable1Name;
-                                                                                }
-                                                                            }
-                                                                        });
-                                                                        document.addEventListener('DOMContentLoaded', function() {
-                                                                            // Obtener el valor almacenado en localStorage
-                                                                            var storedVariable1Name = localStorage.getItem('variable2-selectedVariable');
 
-                                                                            // Actualizar el texto de la opción si el valor existe en localStorage
-                                                                            if (storedVariable1Name) {
-                                                                                var optionVariable2 = document.getElementById('variable_2');
-                                                                                if (optionVariable2) {
-                                                                                    optionVariable2.textContent = storedVariable1Name;
-                                                                                }
-                                                                            }
-                                                                        });
-                                                                    </script>
                                                                     <div class="col-md-2">
                                                                         <div class="form-group">
                                                                             <label class="form-label">Filtro</label>
                                                                             <div class="form-control-wrap">
                                                                                 <select class="form-select" id="select_items" onchange="updateValue(this)">
-                                                                                    <option value="3" selected>Temp CPU °C</option>
-                                                                                    <option value="4" id="variable_1">variable_1</option>
-                                                                                    <option value="5" id="variable_2">varable_2</option>
-                                                                                    <option value="6">WiFi RSSI</option>
+                                                                                    <option value="4" ><?php echo $device == NULL ? "-" : $device->variable1; ?></option>
+                                                                                    <option value="5" ><?php echo $device == NULL ? "-" : $device->variable2; ?></option>
+                                                                                    <option value="3" selected><?php echo $device == NULL ? "-" : $device->variable3; ?></option>
+                                                                                    <option value="6" ><?php echo $device == NULL ? "-" : $device->variable4; ?></option>
                                                                                     <option value="7">WiFi %</option>
                                                                                 </select>
                                                                             </div>

@@ -8,7 +8,6 @@ class Users_controller extends Core_Controller
     {
         parent::__construct();
         $this->load->model('Users_model');
-        $this->load->model('Devices_model');
     }
 
     /**
@@ -149,25 +148,10 @@ class Users_controller extends Core_Controller
             //redirect(base_url());
             echo json_encode(['status' => false ]);
         }
-        // todos los dispostivos del usuario
-        $devices_by_user = $this->Devices_model->get_devices_by_userid($id);
-
+        
         $resp = $this->Users_model->delete_user($id);
-
-        if ($resp) {
-            // eliminar todos los rastros de los dispositivos
-            foreach ($devices_by_user as $key => $device) {
-                // baneamos
-                add_ban_deviceID($device->serialnumber);
-                // eliminar la regla de los estados
-                action_web_hook_rule($device->rule_status_id, '', 'DELETE');
-                // deshabilitar la regla de salvar los datos
-                action_web_hook_rule($device->rule_store_id, '', 'DELETE');
-            }
-            // Salvar el log en la base de datos
 		    log_activity('Usuario eliminado [User Id: ' . $id . ', By user: ' .  $this->Users_model->get_user_username() . ']', 'delete');
-            echo json_encode(['status' => $resp]); // true | false
-        }        
+            echo json_encode(['status' => $resp]);      
     }
 
     // Vista agregar usuario
@@ -201,6 +185,55 @@ class Users_controller extends Core_Controller
 
         $this->load->view("admin/users/users_list", $data);
     }
+
+
+        // método para ban de usuarios
+        public function user_options_post(){
+            if (!is_admin()) {
+                redirect(base_url());
+            }
+            $option = $this->input->post('option', true);
+            $id = $this->input->post('id', true);
+            if ($option == 'ban'){
+                if($this->Users_model->ban_user($id)){
+                    // bloquear todos los dispositivos del usuario
+                    foreach ($devices_by_user as $clave => $device) {
+                        // agregar BAN
+                        add_ban_deviceID($device->serialnumber);
+                        // deshabilitar la regla de los estados
+                        action_web_hook_rule($device->rule_status_id, false, 'PUT');
+                        // deshabilitar la regla de salvar los datos
+                        action_web_hook_rule($device->rule_store_id, false, 'PUT');
+                    }
+                    // Salvar el log en la base de datos
+                    log_activity('Usuario deshabilitado [User Id: ' . $id . ', By administrator: ' .  $this->Users_model->get_user_username() . ', command: '.$option.']', 'disable');
+                    $this->session->set_flashdata('warning', "¡Usuario deshabilitado!");
+                    redirect($this->agent->referrer()); 
+                }else{
+                    $this->session->set_flashdata('error', "¡Error, ocurrió un problema!");
+                    redirect($this->agent->referrer());
+                }
+            }
+            if($option == 'remove_ban'){
+                if($this->Users_model->remove_user_ban($id)){
+                    // desbloquear todos los dispositivos del usuario
+                    foreach ($devices_by_user as $clave => $device) {
+                        remove_ban_deviceID($device->serialnumber);
+                        // habilitar la regla de los estados
+                        action_web_hook_rule($device->rule_status_id, true, 'PUT');
+                        // habilitar la regla de salvar los datos
+                        action_web_hook_rule($device->rule_store_id, true, 'PUT');
+                    }
+                    // Salvar el log en la base de datos
+                    log_activity('Usuario habilitado [User Id: ' . $id . ', By administrator: ' .  $this->Users_model->get_user_username() . ', command: '.$option.']', 'enable');
+                    $this->session->set_flashdata('success', "¡Usuario habilitado!");
+                    redirect($this->agent->referrer());
+                }else{
+                    $this->session->set_flashdata('error', "¡Error, ocurrió un problema!");
+                    redirect($this->agent->referrer());
+                }
+            }
+        }
 
     // método POST update users
     public function change_user_post()
@@ -238,78 +271,21 @@ class Users_controller extends Core_Controller
         }
     }
 
-    // método para ban de usuarios
-    public function user_options_post(){
-        if (!is_admin()) {
-            redirect(base_url());
-        }
-        $option = $this->input->post('option', true);
-        $id = $this->input->post('id', true);
-        $devices_by_user = $this->Devices_model->get_devices_by_userid($id);
-        if ($option == 'ban'){
-            if($this->Users_model->ban_user($id)){
-                // bloquear todos los dispositivos del usuario
-                foreach ($devices_by_user as $clave => $device) {
-                    // agregar BAN
-                    add_ban_deviceID($device->serialnumber);
-                    // deshabilitar la regla de los estados
-                    action_web_hook_rule($device->rule_status_id, false, 'PUT');
-                    // deshabilitar la regla de salvar los datos
-                    action_web_hook_rule($device->rule_store_id, false, 'PUT');
-                }
-                // Salvar el log en la base de datos
-			    log_activity('Usuario deshabilitado [User Id: ' . $id . ', By administrator: ' .  $this->Users_model->get_user_username() . ', command: '.$option.']', 'disable');
-                $this->session->set_flashdata('warning', "¡Usuario deshabilitado!");
-                redirect($this->agent->referrer()); 
-            }else{
-                $this->session->set_flashdata('error', "¡Error, ocurrió un problema!");
-                redirect($this->agent->referrer());
+    public function delete($id) {
+        // Verificar si se recibió un ID válido
+        if ($id) {
+            // Llamar al método delete del modelo
+            $result = $this->Users_model->delete_user($id);
+            
+            // Enviar una respuesta JSON según el resultado de la eliminación
+            if ($result) {
+                echo json_encode(['status' => true, 'message' => 'Usuario eliminado correctamente.']);
+            } else {
+                echo json_encode(['status' => false, 'message' => 'No se pudo eliminar el Usuario.']);
             }
-        }
-        if($option == 'remove_ban'){
-            if($this->Users_model->remove_user_ban($id)){
-                // desbloquear todos los dispositivos del usuario
-                foreach ($devices_by_user as $clave => $device) {
-                    remove_ban_deviceID($device->serialnumber);
-                    // habilitar la regla de los estados
-                    action_web_hook_rule($device->rule_status_id, true, 'PUT');
-                    // habilitar la regla de salvar los datos
-                    action_web_hook_rule($device->rule_store_id, true, 'PUT');
-                }
-                // Salvar el log en la base de datos
-			    log_activity('Usuario habilitado [User Id: ' . $id . ', By administrator: ' .  $this->Users_model->get_user_username() . ', command: '.$option.']', 'enable');
-                $this->session->set_flashdata('success', "¡Usuario habilitado!");
-                redirect($this->agent->referrer());
-            }else{
-                $this->session->set_flashdata('error', "¡Error, ocurrió un problema!");
-                redirect($this->agent->referrer());
-            }
+        } else {
+            echo json_encode(['status' => false, 'message' => 'ID no proporcionado.']);
         }
     }
 
-    // eliminar usuarios (Admin)
-    public function delete_user_post(){
-        // Capturar POST con formato json
-        $_POST = json_decode($this->security->xss_clean(file_get_contents("php://input")), TRUE);
-        $id = $this->input->post('id', true);
-        if (!is_admin()) {            
-            echo json_encode(['status' => false]);
-        }
-        // todos los dispositivos del usuario
-        $devices_by_user = $this->Devices_model->get_devices_by_userid($id);
-        $resp = $this->Users_model->delete_user($id);
-        if($resp){
-            // bloquear todos los dispositivos del usuario
-            foreach ($devices_by_user as $clave => $device) {
-                // Agregar al ban todos los id de dispositivos
-                add_ban_deviceID($device->serialnumber);
-                // eliminar todas las reglas de status de la api
-                action_web_hook_rule($device->rule_status_id, '', 'DELETE');
-                // deshabilitar la regla de salvar los datos
-                action_web_hook_rule($device->rule_store_id, '', 'DELETE');
-            }
-            log_activity('Usuario eliminado [User Id: ' . $id . ', By administrator: ' .  $this->Users_model->get_user_username() . ']', 'delete');
-        }
-        echo json_encode(['status' => $resp]);        
-    }
 }

@@ -125,7 +125,15 @@
                                                                                         '<?php echo $device->id; ?>', 
                                                                                         '<?php echo $device->serialnumber; ?>',
                                                                                         '<?php echo $device->name; ?>',
-                                                                                        '<?php echo $device->address; ?>'                                                       
+                                                                                        '<?php echo $device->address; ?>',
+                                                                                        '<?php echo $device->variable1; ?>',
+                                                                                        '<?php echo $device->variable2; ?>',
+                                                                                        '<?php echo $device->variable3; ?>',
+                                                                                        '<?php echo $device->variable4; ?>',
+                                                                                        '<?php echo $device->unidad1; ?>',
+                                                                                        '<?php echo $device->unidad2; ?>',
+                                                                                        '<?php echo $device->unidad3; ?>',
+                                                                                        '<?php echo $device->unidad4; ?>'                                               
                                                                                     )">
                                                                                     <em class="icon ni ni-cpu text-blue"></em>Editar
                                                                                 </a>
@@ -206,6 +214,55 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-label" for="variable1">Variable 1</label>
+                    <div class="form-control-wrap">
+                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="variable1" name="variable1" placeholder="Variable 1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="unidad1">Unidad 1</label>
+                    <div class="form-control-wrap">
+                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="unidad1" name="unidad1" placeholder="Unidad 1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="variable2">Variable 2</label>
+                    <div class="form-control-wrap">
+                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="variable2" name="variable2" placeholder="Variable 2" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="unidad2">Unidad 2</label>
+                    <div class="form-control-wrap">
+                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="unidad2" name="unidad2" placeholder="Unidad 2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="variable3">Variable 3</label>
+                    <div class="form-control-wrap">
+                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="variable3" name="variable3" placeholder="Variable 3" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="unidad3">Unidad 3</label>
+                    <div class="form-control-wrap">
+                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="unidad3" name="unidad3" placeholder="Unidad 3">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="variable4">Variable 4</label>
+                    <div class="form-control-wrap">
+                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="variable4" name="variable4" placeholder="Variable 4" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="unidad4">Unidad 4</label>
+                    <div class="form-control-wrap">
+                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="unidad4" name="unidad4" placeholder="Unidad 4" >
+                    </div>
+                </div>
+         
+                <div class="form-group">
                     <button type="submit" class="btn btn-lg btn-outline-primary">Guardar los cambios</button>
                 </div>
                 <?php echo form_close(); ?>
@@ -215,12 +272,20 @@
 </div>
 
 <script>
-    function editDevice(id, serialnumber, name, address) {
+    function editDevice(id, serialnumber, name, address, variable1,  variable2, variable3, variable4, unidad1, unidad2, unidad3, unidad4) {
         const ModalEdit = new bootstrap.Modal(modalForm, {}).show();
         document.getElementById('device_id').value = id;
         document.getElementById('serialnumber').value = serialnumber;
         document.getElementById('name').value = name;
         document.getElementById('address').value = address;
+        document.getElementById('variable1').value = variable1;
+        document.getElementById('variable2').value = variable2;
+        document.getElementById('variable3').value = variable3;
+        document.getElementById('variable4').value = variable4;
+        document.getElementById('unidad1').value = unidad1;
+        document.getElementById('unidad2').value = unidad2;
+        document.getElementById('unidad3').value = unidad3;
+        document.getElementById('unidad4').value = unidad4;
     }
 </script>
 <!-- app-root @e -->

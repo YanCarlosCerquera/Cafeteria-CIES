@@ -6,7 +6,7 @@
 <body class="nk-body ui-rounder npc-default pg-auth">
     <style>
         .nk-body {
-            background-image: url('<?php echo base_url(); ?>assets/images/fondo_login(3).jpg');
+            background-image: url('<?php echo base_url(); ?>assets/images/fondo_login(5).jpg');
             background-size: cover;
             background-position: center;
         }
@@ -103,16 +103,16 @@
                                 <?php echo form_open_multipart('auth_controller/registerUser'); ?>
 
                                 <div class="form-group">
-                                    <label class="form-label" for="fullname">Nombre completo (Opcional)</label>
+                                    <label class="form-label" for="fullname">Nombre completo</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="fullname" name="fullname" placeholder="Nombre completo" value="<?php echo old('fullname'); ?>">
+                                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="fullname" name="fullname" placeholder="Nombre completo" required="" value="<?php echo old('fullname'); ?>">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="form-label" for="username">Usuario(MQTT)</label>
+                                    <label class="form-label" for="username">Usuario</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="username" name="username" placeholder="Usuario MQTT" required="" value="<?php echo old('username'); ?>">
+                                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="username" name="username" placeholder="Usuario" required="" value="<?php echo old('username'); ?>">
                                     </div>
                                 </div>
 

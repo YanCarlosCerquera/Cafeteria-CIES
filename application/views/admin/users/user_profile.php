@@ -51,9 +51,6 @@
                                                         <a class="nav-link" data-toggle="tab" href="#tabItemUpdate"><em class="icon ni ni-account-setting-fill"></em><span>Actualizar perfil</span></a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#tabItemNotifications"><em class="icon ni ni-alert-fill"></em><span>Notificaciones</span></a>
-                                                    </li>
-                                                    <li class="nav-item">
                                                         <a class="nav-link" data-toggle="tab" href="#tabItemSecurity"><em class="icon ni ni-lock-alt-fill"></em><span>Seguridad</span></a>
                                                     </li>
                                                 </ul>
@@ -92,28 +89,11 @@
                                                                             <span class="profile-ud-value"><?php echo $user->email ?></span>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="profile-ud-item">
-                                                                        <div class="profile-ud wider">
-                                                                            <span class="profile-ud-label">Telegram id:</span>
-                                                                            <span class="profile-ud-value"><?php echo $user->telegram_ChatId ?></span>
-                                                                        </div>
-                                                                    </div>
+                                                               
                                                                     <div class="profile-ud-item">
                                                                         <div class="profile-ud wider">
                                                                             <span class="profile-ud-label">Ultima conexión:</span>
                                                                             <span class="profile-ud-value"><?php echo time_ago($user->last_seen); ?></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-ud-item">
-                                                                        <div class="profile-ud wider">
-                                                                            <span class="profile-ud-label">Registrado:</span>
-                                                                            <span class="profile-ud-value"><?php echo $user->created ?></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-ud-item">
-                                                                        <div class="profile-ud wider">
-                                                                            <span class="profile-ud-label">Método de registro:</span>
-                                                                            <span class="profile-ud-value"><?php echo $user->method ?></span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="profile-ud-item">
@@ -256,90 +236,6 @@
                                                             </div><!-- .nk-block -->
                                                         </div>
                                                         <!--tab pane-->
-
-                                                        <!--tab pane-->
-                                                        <div class="tab-pane" id="tabItemNotifications">
-                                                            <div class="nk-block nk-block-between">
-                                                                <div class="nk-block-head">
-                                                                    <h6 class="title">Configuración de las notificaciones</h6>
-                                                                    <p>Notificaciones mediante correo electrónico y Telegram</p>
-                                                                </div><!-- .nk-block-head -->
-                                                            </div><!-- .nk-block-between  -->
-                                                            <div class="nk-block">
-                                                                <div class="card-inner">
-                                                                    <div class="nk-block-head nk-block-head-sm">
-                                                                        <div class="nk-block-head-content">
-                                                                            <h6>Habilitar/Deshabilitar las alertas de dispositivos</h6>
-                                                                        </div>
-                                                                    </div><!-- .nk-block-head -->
-                                                                    <div class="nk-block-content">
-                                                                        <!-- form start -->
-                                                                        <?php echo form_open_multipart('users_controller/alerts_update_post'); ?>
-
-                                                                        <input type="hidden" name="user_id" value="<?php echo $user->id ?>">
-
-                                                                        <div class="gy-3">
-                                                                            <div class="g-item">
-                                                                                <div class="custom-control custom-switch">
-                                                                                    <input type="checkbox" class="custom-control-input" id="email_enable_send" <?php echo $user->email_enable_send ? "checked" : "" ?> onchange="change(this)">
-                                                                                    <label class="custom-control-label" for="email_enable_send">Recibe alertas en el correo electrónico</label>
-                                                                                    <input type="hidden" name="email_enable_send" value="<?php echo $user->email_enable_send ?>">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="g-item">
-                                                                                <div class="custom-control custom-switch">
-                                                                                    <input type="checkbox" class="custom-control-input" id="telegram_enable_send" <?php echo $user->telegram_enable_send ? "checked" : "" ?> onchange="change(this)">
-                                                                                    <label class="custom-control-label" for="telegram_enable_send">Recibe alertas en Telegram</label>
-                                                                                    <input type="hidden" name="telegram_enable_send" value="<?php echo $user->telegram_enable_send ?>">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="g-item">
-                                                                                <div class="form-group">
-                                                                                    <div class="col-lg-4">
-                                                                                        <label class="form-label" for="telegram_ChatId">ID de Telegram</label>
-                                                                                        <div class="form-control-wrap">
-                                                                                            <input type="text" class="form-control" id="telegram_ChatId" name="telegram_ChatId" placeholder="ID de Telegram" value="<?php echo $user->telegram_ChatId ?>">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-lg-12">
-                                                                                    <!-- Ayuda chat id de telegram -->
-                                                                                    <div class="nk-block-head">
-                                                                                        <div class="nk-block-head-content">
-                                                                                            <h6 class="title nk-block-title">¿Como obtener el ChatID de Telegram?</h6>
-                                                                                            <div class="nk-block-des">
-                                                                                                <p>Siga los siguientes pasos para obtener el chat id de Telegram:</p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <ul class="list list-sm list-checked">
-                                                                                        <li>Abrimos el navegador y nos dirigimos al siguiente link <code class="code-tag"><a href="https://web.telegram.org" target="_blank" rel="noopener noreferrer">https://web.telegram.org</a></code></li>
-                                                                                        <li>Escribimos nuestro número de celular en el campo correspondiente.</li>
-                                                                                        <li>Telegram nos enviará un <code class="code-tag">código</code> de inicio de sesión que contiene <code class="code-tag">seis dígitos</code> a la aplicación móvil. Utilizamos ese número para iniciar sesión.</li>
-                                                                                        <li>Damos un clic en el cuadro de búsqueda en la esquina superior izquierda de la pantalla. Escribimos <code class="code-tag">«@RawDataBot»</code> y pulsamos <code class="code-tag">«Enter»</code>.</li>
-                                                                                        <li>Damos un clic en <code class="code-tag">«Telegram Bot Raw»</code> para conseguir un mensaje que contenga nuestra información de chat.</li>
-                                                                                        <li>Buscamos el ID en el JSON resultado <code>"id": 128189445</code></li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                                <!-- Fin Ayuda chat id de telegram -->
-                                                                            </div>
-                                                                            <div class="g-item">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6 offset-md-0">
-                                                                                        <div class="form-group">
-                                                                                            <button type="submit" class="btn btn-outline-primary">Guardar los cambios</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <?php echo form_close(); ?>
-                                                                        <!-- form close-->
-                                                                    </div><!-- .nk-block-content -->
-
-                                                                </div><!-- .card -->
-                                                            </div><!-- .nk-block -->
-                                                        </div>
 
                                                         <!--tab pane-->
                                                         <div class="tab-pane" id="tabItemSecurity">

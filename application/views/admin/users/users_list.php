@@ -64,7 +64,6 @@
                                                         <th>Rol</th>
                                                         <th>Estado</th>
                                                         <th>Last seen</th>
-                                                        <th>Registro</th>
                                                         <th>Acciones</th>
                                                     </tr>
                                                 </thead>
@@ -99,9 +98,6 @@
                                                                     <?php echo $user->last_seen; ?><br>
                                                                     <span class="sub-text"><?php echo time_ago($user->last_seen); ?></span>
                                                                 </td>
-                                                                <td><?php echo $user->created; ?><br>
-                                                                    <span class="sub-text"><?php echo time_ago($user->created); ?></span>
-                                                                </td>
                                                                 <td>
                                                                     <div class="dropdown">
                                                                         <a href="#" class="btn btn-outline-primary" data-toggle="dropdown" aria-expanded="false"><span>Seleccione</span><em class="icon ni ni-chevron-down"></em></a>
@@ -115,14 +111,14 @@
                                                                                     '<?php echo $user->is_superuser; ?>',
                                                                                 )"><em class="icon ni ni-user-alt-fill text-blue"></em> Editar</a></li>
 
-                                                                            <?php echo form_open_multipart("users_controller/user_options_post", ['id' => 'form_' . $user->id]); ?>
+                                                                                <?php echo form_open_multipart("users_controller/user_options_post", ['id' => 'form_' . $user->id]); ?>
 
                                                                                 <input type="hidden" name="id" value="<?php echo html_escape($user->id); ?>">
 
                                                                                 <?php if ($user->status == "1") : ?>
                                                                                     <li>
                                                                                         <a href="#" onclick="document.getElementById('form_<?php echo $user->id ?>').submit();"
-                                                                                        <?php echo ($user->id == "1") ? 'class="disabled text-danger"' : '' ?>>
+                                                                                            <?php echo ($user->id == "1") ? 'class="disabled text-danger"' : '' ?>>
                                                                                             <em class="icon ni ni-eye-fill text-warning"></em>Deshabilitar
                                                                                         </a>
                                                                                     </li>
@@ -130,7 +126,7 @@
                                                                                 <?php else : ?>
                                                                                     <li>
                                                                                         <a href="#" onclick="document.getElementById('form_<?php echo $user->id ?>').submit();"
-                                                                                        <?php echo ($user->id == "1") ? 'class="disabled"' : '' ?>>
+                                                                                            <?php echo ($user->id == "1") ? 'class="disabled"' : '' ?>>
                                                                                             <em class="icon ni ni-eye-fill text-warning"></em>Habilitar
                                                                                         </a>
                                                                                     </li>
@@ -138,19 +134,14 @@
                                                                                 <?php endif; ?>
 
                                                                                 <li>
-                                                                                    <a href="javascript:void(0)"
-                                                                                    <?php echo ($user->id == "1") ? 'class="disabled text-danger"' : '' ?> 
-                                                                                    onclick="delete_item(
-                                                                                        'users_controller/delete_user_post',
-                                                                                        '<?php echo html_escape($user->id); ?>',
-                                                                                        '¡Usuario eliminado correctamente!'
-                                                                                    )"
-                                                                                    >
-                                                                                        <em class="icon ni ni-trash-empty-fill text-danger"></em>Eliminar
-                                                                                    </a>
+                                                                                    <a href="javascript:void(0)" class="disabled text-danger" onclick="delete_item(
+                                                                                    '<?php echo base_url(); ?>admin/users/delete/<?php echo html_escape($user->id); ?>',
+                                                                                    '<?php echo html_escape($user->id); ?>',
+                                                                                    'Usuario eliminado correctamente!'
+                                                                                );"><em class="icon ni ni-trash-empty-fill text-danger"></em>Eliminar</a>
                                                                                 </li>
 
-                                                                            <?php echo form_close(); ?>
+                                                                                <?php echo form_close(); ?>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
