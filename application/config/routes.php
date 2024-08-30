@@ -96,6 +96,7 @@ $route['admin/ventas-add/get_productos_por_categoria']['GET'] = 'ventas_controll
 $route['admin/registrar']['POST'] = 'ventas_register_controller/registerVenta';
 $route['admin/ventas/delete/(:any)']['POST'] = 'ventas_register_controller/delete/$1';
 $route['admin/ventas-detalles/(:any)']['GET'] = 'ventas_register_controller/detalle_venta/$1';
+$route['admin/ventas/ventasFiltro']['GET'] = 'ventas_controller/ventasFiltro';
 
 
 

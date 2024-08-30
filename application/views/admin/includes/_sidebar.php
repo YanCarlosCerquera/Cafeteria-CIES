@@ -109,6 +109,14 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
                         </ul>
                     </li><!-- .nk-menu-item -->
 
+
+                    <li class="nk-menu-item active current-page">
+                        <a href="<?php echo base_url() ?>admin/entrega_turno" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-coffee"></em></span>
+                            <span class="nk-menu-text">Entrega de turno</span>
+                        </a>
+                    </li><!-- .nk-menu-item -->
+
                     <li class="nk-menu-item has-sub">
                     <li class="nk-menu-item">
                         <a href="<?php echo base_url(); ?>admin/user-profile/<?php echo $this->session->userdata("id") ?>" class="nk-menu-link">

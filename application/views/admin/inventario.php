@@ -30,7 +30,7 @@
                                     </div>
                                     <div class="nk-block-head-content">
                                         <button type="button" class="btn btn-primary" onclick="addProduct()">Agregar Producto</button>
-                                        <a href="<?php echo base_url() ?>admin/dashboard" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
+                                        <a href="<?php echo base_url() ?>admin/inicio" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
                                     </div>
                                 </div>
                             </div><!-- .nk-block-head -->
@@ -187,11 +187,12 @@
                                 <table class="datatable-init-export nowrap table" data-export-title="Export">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                            
                                             <th>Nombre del producto</th>
                                             <th>Presentación</th>
                                             <th>Cantidad</th>
                                             <th>Categoría</th>
+                                            <th>Fecha de reporte</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -199,11 +200,12 @@
                                         <?php if (!empty($productos)) : ?>
                                             <?php foreach ($productos as $producto) : ?>
                                                 <tr>
-                                                    <td><?php echo $producto->id; ?></td>
+                                                   
                                                     <td><?php echo $producto->nombre; ?></td>
                                                     <td><?php echo $producto->presentacion; ?></td>
                                                     <td><?php echo $producto->cantidad; ?></td>
                                                     <td><?php echo $producto->categoria; ?></td>
+                                                    <td><?php echo $producto->created; ?></td>
                                                     <td>
                                                         <a href="javascript:void(0)" class="btn btn-primary" id="edit" onclick="editProduct(
                                                                                         '<?php echo $producto->id; ?>', 

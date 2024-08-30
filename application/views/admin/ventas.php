@@ -38,7 +38,7 @@
                             <!-- include message block -->
                             <?php $this->load->view('admin/partials/_mesagges'); ?>
 
-                            <?php echo form_open_multipart(current_url()); ?>
+                            <?php echo form_open_multipart('ventas_register_controller/listar_ventas_filtradas'); ?>
                             <input type="hidden" name="form" value="1">
                             <div class="row mt-3">
                                 <div class="col-md-2">
@@ -84,65 +84,65 @@
                                     <table class="datatable-init-export nowrap table" data-export-title="Export">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
-                                                <th>Categoria</th>
+                                                <th>Codigo</th>
                                                 <th>Producto Vendido</th>
                                                 <th>Valor Unitario</th>
                                                 <th>Cantidad</th>
-                                                <th>Descuento</th>
                                                 <th>Valor Total</th>
+                                                <th>Descuento</th>
                                                 <th>Fecha de venta</th>
-                                                <th>Acciones</th>
-
+                                                <th>Vendedor</th>
+                                               
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if (!empty($ventas)) : ?>
-                                                <?php foreach ($ventas as $venta) : ?>
-                                                    <tr>
-                                                        <td> <?php echo $venta->id ?> </td>
-                                                        <td>
-                                                            <?php echo $venta->categoria; ?>
-                                                        </td>
-                                                        <td><?php echo $venta->producto_vendido; ?></td>
-                                                        <td><?php echo $venta->valor_unitario; ?></td>
-                                                        <td><?php echo $venta->cantidad; ?></td>
-                                                        <td><?php echo $venta->descuento; ?></td>
-                                                        <td><?php echo $venta->valor_total; ?></td>
-                                                        <td><?php echo $venta->created; ?></td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a href="#" class="btn btn-outline-primary" data-toggle="dropdown" aria-expanded="false"><span>Seleccione</span><em class="icon ni ni-chevron-down"></em></a>
-                                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-auto mt-1">
-                                                                    <ul class="link-list-plain">
-                                                                        <li><a onclick="editVenta(
-                                                                                    '<?php echo $venta->id; ?>', 
-                                                                                    '<?php echo $venta->categoria; ?>',
-                                                                                    '<?php echo $venta->producto_vendido; ?>',
-                                                                                    '<?php echo $venta->valor_unitario; ?>',
-                                                                                    '<?php echo $venta->cantidad; ?>',
-                                                                                    '<?php echo $venta->descuento; ?>',
-                                                                                    '<?php echo $venta->valor_total; ?>',
-
-                                                                                )"><em class="icon ni ni-user-alt-fill text-blue"></em> Editar</a></li>
-                                                                        <li>
-                                                                            <a href="javascript:void(0)" class="disabled text-danger" onclick="delete_item(
-                                                                                    '<?php echo base_url(); ?>admin/ventas/delete/<?php echo html_escape($venta->id); ?>',
-                                                                                    '<?php echo html_escape($venta->id); ?>',
-                                                                                    'Cliente eliminado correctamente!'
-                                                                                );"><em class="icon ni ni-trash-empty-fill text-danger"></em>Eliminar</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="<?php echo base_url(); ?>admin/ventas-detalles/<?php echo $venta->id?>"><em class="icon ni ni-printer-fill"></em>Imprimir</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
+                                            <?php foreach ($ventas as $venta) : ?>
+                                                <?php
+                                                $productos_vendidos = json_decode($venta->productos_vendidos, true);
+                                                if (!empty($productos_vendidos)) {
+                                                    foreach ($productos_vendidos as $producto) {
+                                                ?>
+                                                        <tr>
+                                                            <td><?php echo $venta->id; ?></td>
+                                                            <td><?php echo $producto['producto']; ?></td>
+                                                            <td><?php echo $producto['valor_unitario']; ?></td>
+                                                            <td><?php echo $producto['cantidad']; ?></td>
+                                                            <td><?php echo $producto['subtotal']; ?></td>
+                                                            <td><?php echo $venta->descuento; ?></td>
+                                                            <td><?php echo $venta->created; ?></td>
+                                                            <td><?php echo $this->Users_model->get_user_username($venta->vendedor_id); ?></td>
+                                                        </tr>
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="modal-<?php echo $venta->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Productos vendidos</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
                                                             </div>
-                                                        </td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
+                                                            <div class="modal-body">
+                                                                <ul>
+                                                                    <?php foreach ($productos_vendidos as $producto) : ?>
+                                                                        <li>
+                                                                            Producto: <?php echo $producto['producto']; ?><br>
+                                                                            Valor Unitario: <?php echo $producto['valor_unitario']; ?><br>
+                                                                            Cantidad: <?php echo $producto['cantidad']; ?><br>
+                                                                            Subtotal: <?php echo $producto['subtotal']; ?><br>
+                                                                        </li>
+                                                                    <?php endforeach; ?>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
 
