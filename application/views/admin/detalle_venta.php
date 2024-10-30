@@ -19,7 +19,7 @@
                             <div class="nk-block-head">
                                 <div class="nk-block-between g-3">
                                     <div class="nk-block-head-content">
-                                    <h3 class="nk-block-title page-title">Detalle de venta <strong class="text-primary small">Venta #<?php echo $detalle_venta->id; ?></strong></h3>
+                                        <h3 class="nk-block-title page-title">Detalle de venta <strong class="text-primary small">Venta #<?php echo $detalle_venta->id; ?></strong></h3>
                                         <div class="nk-block-des text-soft">
                                             <ul class="list-inline">
                                                 <li>Fecha de venta: <span class="text-base"><?php echo $detalle_venta->created; ?></span></li>
@@ -36,7 +36,7 @@
                             <div class="nk-block">
                                 <div class="invoice">
                                     <div class="invoice-action">
-                                        <a class="btn btn-icon btn-lg btn-white btn-dim btn-outline-primary" href="html/invoice-print.html" target="_blank"><em class="icon ni ni-printer-fill"></em></a>
+                                        <a class="btn btn-icon btn-lg btn-white btn-dim btn-outline-primary" href="<?php echo base_url(); ?>admin/imprimir-factura/<?php echo $detalle_venta->id; ?>" target="_blank"><em class="icon ni ni-printer-fill"></em></a>
                                     </div><!-- .invoice-actions -->
                                     <div class="invoice-wrap">
                                         <div class="invoice-brand text-center">
@@ -60,76 +60,45 @@
                                                     <li class="invoice-date"><span>Fecha de venta</span>:<span><?php echo $detalle_venta->created; ?></span></li>
                                                 </ul>
                                             </div>
-                                        </div><!-- .invoice-head -->
+                                        </div>
+
                                         <div class="invoice-bills">
                                             <div class="table-responsive">
                                                 <table class="table table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th class="w-20">Categoria</th>
-                                                            <th>Producto vendido</th>
+                                                            <th class="w-30">Producto</th>
                                                             <th>Valor Unitario</th>
                                                             <th>Cantidad</th>
-                                                            <th>Descuento</th>
-                                                            <th>Valor Total</th>
-
+                                                            <th>Subtotal</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>24108054</td>
-                                                            <td>Dashlite - Conceptual App Dashboard - Regular License</td>
-                                                            <td>$40.00</td>
-                                                            <td>5</td>
-                                                            <td>$200.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>24108054</td>
-                                                            <td>6 months premium support</td>
-                                                            <td>$25.00</td>
-                                                            <td>1</td>
-                                                            <td>$25.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>23604094</td>
-                                                            <td>Invest Management Dashboard - Regular License</td>
-                                                            <td>$131.25</td>
-                                                            <td>1</td>
-                                                            <td>$131.25</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>23604094</td>
-                                                            <td>6 months premium support</td>
-                                                            <td>$78.75</td>
-                                                            <td>1</td>
-                                                            <td>$78.75</td>
-                                                        </tr>
+                                                        <?php
+                                                        $productos_vendidos = json_decode($detalle_venta->productos_vendidos, true);
+                                                        foreach ($productos_vendidos as $producto) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $producto['producto']; ?></td>
+                                                                <td><?php echo $producto['valor_unitario']; ?></td>
+                                                                <td><?php echo $producto['cantidad']; ?></td>
+                                                                <td><?php echo $producto['subtotal']; ?></td>
+                                                            </tr>
+                                                        <?php } ?>
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
-                                                            <td colspan="2"></td>
-                                                            <td colspan="2">Subtotal</td>
-                                                            <td>$435.00</td>
+                                                            <td colspan="3">Descuento</td>
+                                                            <td><?php echo $detalle_venta->descuento; ?></td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2"></td>
-                                                            <td colspan="2">Processing fee</td>
-                                                            <td>$10.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="2"></td>
-                                                            <td colspan="2">TAX</td>
-                                                            <td>$43.50</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="2"></td>
-                                                            <td colspan="2">Grand Total</td>
-                                                            <td>$478.50</td>
+                                                            <td colspan="3">Valor Total</td>
+                                                            <td><?php echo $detalle_venta->valor_total; ?></td>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
                                             </div>
-                                        </div><!-- .invoice-bills -->
+                                        </div>
                                     </div><!-- .invoice-wrap -->
                                 </div><!-- .invoice -->
                             </div><!-- .nk-block -->
@@ -147,5 +116,9 @@
 <!-- JavaScript -->
 <?php $this->load->view("admin/includes/_JavaScripts"); ?>
 </body>
-
+<script>
+        function printPromot() {
+            window.print();
+        }
+    </script>
 </html>

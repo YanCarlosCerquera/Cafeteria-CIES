@@ -29,13 +29,15 @@
                                         </div>
                                     </div>
                                     <div class="nk-block-head-content">
-                                        <button type="button" class="btn btn-primary" onclick="addProduct()">Agregar Producto</button>
+                                        <?php if ($this->session->userdata("is_superuser") === "1") : ?>
+                                            <button type="button" class="btn btn-primary" onclick="addProduct()">Agregar Producto</button>
+                                        <?php endif; ?>
+
                                         <a href="<?php echo base_url() ?>admin/inicio" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
                                     </div>
                                 </div>
                             </div><!-- .nk-block-head -->
                             <?php $this->load->view('admin/partials/_mesagges'); ?>
-                            <!-- form start -->
                             <?php echo form_open_multipart(current_url()); ?>
                             <input type="hidden" name="form" value="1">
                             <div class="row mt-3">
@@ -71,9 +73,23 @@
                                         </li>
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Sede</label>
+                                        <select name="sede" class="form-control" id="sede">
+                                            <option value="">Seleccione una sede</option>
+                                            <option value="CIES">CIES</option>
+                                            <option value="Comercio">Comercio</option>
+                                        </select><br>
+                                    </div>
+                                </div>
                             </div>
-                            <?php echo form_close(); ?><!-- form end -->
+
+
+                            <div id="datos-inventario"></div>
+                            <?php echo form_close(); ?>
                         </div>
+                        <div id="datos-inventario"></div>
                         <!-- Modal Form -->
                         <div class="modal fade" id="modalProductForm" tabindex="-1" role="dialog" aria-labelledby="modalProductFormTitle" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -99,7 +115,8 @@
                                             <div class="col-lg-7 mb-3">
                                                 <div class="form-group">
                                                     <div class="form-control-wrap">
-                                                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="nombre" name="nombre" placeholder="Nombre del producto" required="">
+                                                        <input type="text" autocomplete="off" class="form-control form-control-lg" id="nombre" name="nombre" placeholder="Nombre del producto" required=""
+                                                            <?php if ($this->session->userdata("is_superuser") !== "1") : ?>disabled<?php endif; ?>>
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,7 +131,8 @@
                                             <div class="col-lg-7 mb-3">
                                                 <div class="form-group">
                                                     <div class="form-control-wrap">
-                                                        <select class="form-select" data-placeholder="Seleccione la presentación" id="presentacion" name="presentacion" required="">
+                                                        <select class="form-select" data-placeholder="Seleccione la presentación" id="presentacion" name="presentacion" required=""
+                                                            <?php if ($this->session->userdata("is_superuser") !== "1") : ?>disabled<?php endif; ?>>
                                                             <option value="Unidad">Unidad</option>
                                                             <option value="Mililitros">Mililitros</option>
                                                             <option value="Rollo">Rollo</option>
@@ -152,7 +170,8 @@
                                             <div class="col-lg-7 mb-3">
                                                 <div class="form-group">
                                                     <div class="form-control-wrap">
-                                                        <select class="form-select" data-placeholder="Seleccione la categoría" id="categoria" name="categoria" required="">
+                                                        <select class="form-select" data-placeholder="Seleccione la categoría" id="categoria" name="categoria" required=""
+                                                            <?php if ($this->session->userdata("is_superuser") !== "1") : ?>disabled<?php endif; ?>>
                                                             <option value="Panaderia">Panadería</option>
                                                             <option value="Agroindustria">Agroindustria</option>
                                                             <option value="Materia prima">Materia prima</option>
@@ -164,6 +183,7 @@
                                             </div>
                                         </div>
 
+                                        <input type="hidden" name="sede" id="hidden_sede">
                                         <div class="row g-gs">
                                             <div class="col-md-12 mt-3">
                                                 <div class="form-group">
@@ -171,8 +191,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <?php echo form_close(); ?><!-- form end -->
+                                        <?php echo form_close(); ?>
                                     </div>
                                 </div>
                             </div>
@@ -187,7 +206,7 @@
                                 <table class="datatable-init-export nowrap table" data-export-title="Export">
                                     <thead>
                                         <tr>
-                                            
+
                                             <th>Nombre del producto</th>
                                             <th>Presentación</th>
                                             <th>Cantidad</th>
@@ -196,40 +215,8 @@
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <?php if (!empty($productos)) : ?>
-                                            <?php foreach ($productos as $producto) : ?>
-                                                <tr>
-                                                   
-                                                    <td><?php echo $producto->nombre; ?></td>
-                                                    <td><?php echo $producto->presentacion; ?></td>
-                                                    <td><?php echo $producto->cantidad; ?></td>
-                                                    <td><?php echo $producto->categoria; ?></td>
-                                                    <td><?php echo $producto->created; ?></td>
-                                                    <td>
-                                                        <a href="javascript:void(0)" class="btn btn-primary" id="edit" onclick="editProduct(
-                                                                                        '<?php echo $producto->id; ?>', 
-                                                                                        '<?php echo $producto->nombre; ?>',
-                                                                                        '<?php echo $producto->presentacion; ?>',
-                                                                                        '<?php echo $producto->cantidad; ?>',
-                                                                                        '<?php echo $producto->categoria; ?>',                                              
-                                                                                    )">
-                                                            Editar
-                                                        </a>
+                                    <tbody id="tabla-productos">
 
-                                                        <a href="javascript:void(0)" class="btn btn-danger" onclick="delete_item(
-                                                                '<?php echo base_url(); ?>admin/inventario/delete/<?php echo html_escape($producto->id); ?>',
-                                                                '<?php echo html_escape($producto->id); ?>',
-                                                                'Producto eliminado correctamente!'
-                                                            );">Eliminar</a>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        <?php else : ?>
-                                            <tr>
-                                                <td colspan="6">No hay productos en el inventario.</td>
-                                            </tr>
-                                        <?php endif; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -253,27 +240,39 @@
     // Inicializa el modal
     var modalProductForm = new bootstrap.Modal(document.getElementById('modalProductForm'));
 
+    const sedeSelect = document.getElementById('sede');
+    const hiddenSedeInput = document.getElementById('hidden_sede');
+    sedeSelect.addEventListener('change', function() {
+        hiddenSedeInput.value = this.value;
+    });
     // Función para abrir el modal en modo de edición
-    function editProduct(id, nombre, presentacion, cantidad, categoria) {
+    function editProduct(id, nombre, presentacion, cantidad, categoria, sede) {
         modalProductForm.show();
         document.getElementById('product_id').value = id;
         document.getElementById('nombre').value = nombre;
         document.getElementById('cantidad').value = cantidad;
+        const sedeSelect = document.getElementById('sede');
+        sedeSelect.value = sede;
 
-        // Establecer la opción seleccionada en el campo de presentación
+        // Actualizar el campo oculto de sede
+        const hiddenSedeInput = document.getElementById('sede');
+        hiddenSedeInput.value = sede;
+
         const presentacionSelect = document.getElementById('presentacion');
-        presentacionSelect.value = presentacion;
-        // Si el valor no coincide, puedes forzar el valor seleccionado de la siguiente manera
-        if (!presentacionSelect.value) {
-            console.error('Valor de presentación no encontrado:', presentacion);
+        if (presentacionSelect.querySelector(`option[value="${presentacion}"]`)) {
+            presentacionSelect.value = presentacion;
+        } else {
+            const newOption = new Option(presentacion, presentacion);
+            presentacionSelect.add(newOption);
+            presentacionSelect.value = presentacion;
         }
-
-        // Establecer la opción seleccionada en el campo de categoría
         const categoriaSelect = document.getElementById('categoria');
-        categoriaSelect.value = categoria;
-        // Si el valor no coincide, puedes forzar el valor seleccionado de la siguiente manera
-        if (!categoriaSelect.value) {
-            console.error('Valor de categoría no encontrado:', categoria);
+        if (categoriaSelect.querySelector(`option[value="${categoria}"]`)) {
+            categoriaSelect.value = categoria;
+        } else {
+            const newOption = new Option(categoria, categoria);
+            categoriaSelect.add(newOption);
+            categoriaSelect.value = categoria;
         }
 
         document.getElementById('modalProductFormTitle').innerText = 'Editar Producto';
@@ -284,17 +283,73 @@
     function addProduct() {
         modalProductForm.show();
 
-        // Limpiar los campos del formulario para agregar un nuevo producto
         document.getElementById('product_id').value = '';
         document.getElementById('nombre').value = '';
         document.getElementById('presentacion').value = '';
         document.getElementById('cantidad').value = '';
         document.getElementById('categoria').value = '';
 
-        // Cambiar el título y el texto del botón del modal para indicar que es una adición
         document.getElementById('modalProductFormTitle').innerText = 'Agregar Nuevo Producto';
         document.getElementById('submit-button').innerText = 'Agregar producto';
     }
+
+
+
+
+    $(document).ready(function() {
+        $('#sede').change(function() {
+            var sede = $(this).val();
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('Inventario_controller/get_productos_by_sede'); ?>',
+                data: {
+                    sede: sede
+                },
+                dataType: 'json',
+                success: function(data) {
+                    var html = '';
+
+                    $.each(data, function(index, item) {
+                        html += `
+                        <tr>
+                            <td>` + item.nombre + `</td>
+                            <td>` + item.presentacion + `</td>
+                            <td>` + item.cantidad + `</td>
+                            <td>` + item.categoria + `</td>
+                            <td>` + item.created + `</td>
+                            <td>
+                                <a href="javascript:void(0)" class="btn btn-primary" id="edit" onclick="editProduct(
+                                    '` + item.id + `', 
+                                    '` + item.nombre + `',
+                                    '` + item.presentacion + `',
+                                    '` + item.cantidad + `',
+                                    '` + item.categoria + `',
+                                    '` + item.sede + `' 
+
+                                );">Editar</a>
+                                
+                                <?php if ($this->session->userdata("is_superuser") === "1") : ?>
+                                    <a href="javascript:void(0)" class="btn btn-danger" onclick="delete_item(
+                                        '` + base_url + `admin/inventario/delete/` + item.id + `',
+                                        '` + item.id + `',
+                                        'Producto eliminado correctamente!',
+                                        '` + item.sede + `'
+                                    );">Eliminar</a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    `;
+                    });
+
+                    $('#tabla-productos').html(html);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error AJAX:', error);
+                }
+            });
+        });
+    });
 </script>
 
 

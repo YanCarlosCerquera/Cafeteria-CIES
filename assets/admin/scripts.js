@@ -9,16 +9,22 @@ function change(e) {
 }
 
 // llamar al dialogo de pregunta (eliminar)
-function delete_item(url, id, text) {
+function delete_item(url, id, text, sede = null) {
 	let data = {
 		url: url,
 		id: id,
 		icon: "success",
 		title: text,
 	};
-	console.log(data)
+
+	if (sede) {
+		data.sede = sede;
+	}
 	swalConfirmation(data);
+	console.log(data)
 }
+
+
 
 // definir el Swal
 const swalWithBootstrapButtons = Swal.mixin({
@@ -57,20 +63,23 @@ function swalConfirmation(data) {
 			}
 		});
 }
-// Ejecutar un POST
 function executePost({
 	url = "url",
 	id = "",
 	value = "",
 	icon = "success",
 	title = "",
+	sede = null 
 }) {
 	let data = {
 		id: id,
 		value: value,
 	};
 
-	
+	if (sede) {
+		data.sede = sede;
+	}
+	console.log(data)
 	fetch(url, {
 		headers: {
 			"Content-Type": "application/json",
@@ -87,15 +96,16 @@ function executePost({
 			} else {
 				swalTop("error", "¡Error, no está permitida esta acción!", 3000);
 			}
-
 			setTimeout(function () {
-				window.location.reload(); // recargar la pagina actual
+				window.location.reload(); 
 			}, 3000);
 		})
 		.catch(function (error) {
 			console.log(error);
 		});
 }
+
+
 
 // Ejecutar un swal al borde superior derecho
 function swalTop(icon, title, timer) {

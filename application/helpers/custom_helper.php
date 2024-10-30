@@ -97,6 +97,10 @@ if (!function_exists('is_same_user')) {
         return $ci->users_model->is_same_user($id);
     }
 }
+
+
+
+
 // genera un tiempo
 function time_ago($timestamp)
 {
@@ -214,6 +218,8 @@ if (!function_exists('get_serial64')) {
         return remove_forbidden_characters(base64_encode($serialnumber));
     }
 }
+
+
 
 /*----------------------------------------------------------------------------------*\
     MENSAJES DE LA APLICACIÓN

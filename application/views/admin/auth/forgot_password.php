@@ -6,11 +6,11 @@
 <body class="nk-body ui-rounder npc-default pg-auth">
     <style>
         .nk-body {
-            background-image: url('<?php echo base_url(); ?>assets/images/fondo_login(5).jpg');
+            background-image: url('<?php echo base_url(); ?>assets/images/fondo_login(5).jpeg');
             background-size: cover;
             background-position: center;
         }
-    </style>
+    </style>>
     <div class="nk-app-root">
         <!-- main @s -->
         <div class="nk-main ">
@@ -19,14 +19,15 @@
                 <!-- content @s -->
                 <div class="nk-content ">
                     <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
-                    <div class="brand-logo pb-0 text-center logo-organizacion">
+                        <div class="brand-logo pb-0 text-center logo-organizacion">
                             <a href="<?php echo base_url(); ?>" class="logo-link">
                                 <img class="logo-light logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo2x.png 2x" alt="logo">
                                 <img class="logo-dark logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo-dark2x.png 2x" alt="logo-dark">
                             </a>
-                            <p>Servicios <br>Tecnologicos</p>
                             <img src="<?php echo base_url() ?>assets/images/line.png" class="lineaLogoIcon">
-                            <p>Tecnoparque <br>Nodo Neiva</p>
+                            <p>Servicios <br>Tecnologicos</p>
+                          
+                           
                             <style>
                                 .logo-img-lg {
                                     max-width: 100px !important;
@@ -55,11 +56,11 @@
                                 }
 
                                 .logo-organizacion p {
-                                    font-size: 16px;
+                                    font-size: 24px;
                                     font-family: Nunito, sans-serif;
                                     font-weight: bold !important;
                                     line-height: normal;
-                                    color: black !important;
+                                    color: white !important;
                                     font-weight: 900 !important;
                                 }
 

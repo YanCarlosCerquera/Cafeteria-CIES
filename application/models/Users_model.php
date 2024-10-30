@@ -14,6 +14,19 @@ class Users_model extends CI_Model{
             return false;
         }
     }
+
+    public function get_user_by_id($id) {
+        $this->db->where('id', $id);
+        $query = $this->db->get('users');
+        return $query->row();
+    }
+    public function get_current_user_username()
+    {
+        $user_id = $this->session->userdata('user_id');
+        $this->load->model('Users_model');
+        $user = $this->Users_model->get_user_by_id($user_id);
+        return $user->username;
+    }
     //update last_seen
     public function update_last_seen($id)
     {

@@ -1,20 +1,19 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Inventario_model extends CI_Model
+class Inventario_comercio_model extends CI_Model
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Inventario_model');
-        $this->load->model('inventario_comercio_model');
+        $this->load->model('Inventario_comercio_model');
     }
-    private $table = 'inventario';
+    private $table = 'inventario_comercio';
 
     // Obtener todos los registros
     public function get_all()
     {
-        $query = $this->db->get('inventario');
+        $query = $this->db->get('inventario_comercio');
         return $query->result();
     }
 
@@ -37,9 +36,8 @@ class Inventario_model extends CI_Model
         $query = $this->db->get($this->table);
         return $query->row();
     }
+    
     // add product
-
-
     public function add_product()
     {
         $data = array(
@@ -50,14 +48,14 @@ class Inventario_model extends CI_Model
         );
 
         // Insertar en la base de datos
-        return $this->db->insert('inventario', $data);
+        return $this->db->insert('inventario_comercio', $data);
     }
 
     public function update($id, $data)
     {
         // Actualizar el registro con el ID especificado
         $this->db->where('id', $id);
-        return $this->db->update('inventario', $data);
+        return $this->db->update('inventario_comercio', $data);
     }
 
 
@@ -68,7 +66,7 @@ class Inventario_model extends CI_Model
         $producto = $this->get_by_id($id);
         if (!empty($producto)) {
             $this->db->where('id', $id);
-            return $this->db->delete('inventario');
+            return $this->db->delete('inventario_comercio');
         } else {
             return false;
         }

@@ -19,7 +19,7 @@
                             <div class="nk-block-head nk-block-head-sm">
                                 <div class="nk-block-between g-3">
                                     <div class="nk-block-head-content">
-                                        <h3 class="nk-block-title page-title">Usuarios | <strong class="text-primary small">Registro de venta</strong></h3>
+                                        <h3 class="nk-block-title page-title">Ventas | <strong class="text-primary small">Registro de venta</strong></h3>
                                         <div class="nk-block-des text-soft d-none d-md-inline-flex">
                                             <ul class="breadcrumb breadcrumb-pipe">
                                                 <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>admin/dashboard">Inicio</a></li>
@@ -31,7 +31,6 @@
                                     <div class="nk-block-head-content">
                                         <a href="<?php echo base_url(); ?>admin/clientes-add" class="btn btn-outline-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Nuevo Cliente</span></a>
                                         <a href="<?php echo base_url() ?>admin/inicio" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
-                                        <a href="<?php echo base_url() ?>admin/dashboard" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                                     </div>
                                 </div>
                             </div><!-- .nk-block-head -->
@@ -57,7 +56,7 @@
                                                             <label class="form-label">Identificación del cliente</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-7 mb-3">
+                                                    <div class="col-lg-9 mb-3">
                                                         <div class="form-group">
                                                             <div class="form-control-wrap">
                                                                 <input type="number" autocomplete="off" class="form-control form-control-lg" id="identificacion_cliente" name="identificacion_cliente" placeholder="Numero de identificación del cliente">
@@ -69,7 +68,7 @@
                                                             <label class="form-label">Nombre del cliente</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-7 mb-3">
+                                                    <div class="col-lg-9 mb-3">
                                                         <div class="form-group">
                                                             <div class="form-control-wrap">
                                                                 <input type="text" class="form-control form-control-lg" id="nombre_cliente" name="nombre_cliente" placeholder="Nombre del cliente" readonly>
@@ -81,33 +80,20 @@
                                                             <label class="form-label">Correo del Cliente</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-7 mb-3">
+                                                    <div class="col-lg-9 mb-3">
                                                         <div class="form-group">
                                                             <div class="form-control-wrap">
                                                                 <input type="text" class="form-control form-control-lg" id="correo_cliente" name="correo_cliente" placeholder="Correo electronico del cliente" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" name="vendedor_username" value="<?php echo $vendedor_username; ?>">
                                                 </div>
 
 
                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalForm">Agregar un producto</button>
 
                                                 <input type="hidden" id="productos_vendidos" name="productos_vendidos" value="">
-                                                <div class="row g-3 align-center">
-                                                    <div class="col-lg-3 offset-0">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Descuento</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-7 mb-3">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <input type="number" autocomplete="off" class="form-control form-control-lg" id="descuento" name="descuento" placeholder="Valor total del descuento (Si aplica)" value="">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
                                                 <div class="row g-3 align-center">
                                                     <div class="col-lg-3 offset-0">
@@ -115,7 +101,7 @@
                                                             <label class="form-label">Valor Total</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-7 mb-3">
+                                                    <div class="col-lg-9 mb-3">
                                                         <div class="form-group">
                                                             <div class="form-control-wrap">
                                                                 <input type="number" autocomplete="off" class="form-control form-control-lg" id="valor_total" name="valor_total" placeholder="Valor total del producto" required="" readonly>
@@ -127,13 +113,95 @@
                                                 <div class="row g-3 align-center">
                                                     <div class="col-lg-3 offset-0">
                                                         <div class="form-group">
-                                                            <label class="form-label">Cantidad recibida del cliente</label>
+                                                            <label class="form-label">Modo de pago</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-7 mb-3">
+                                                    <div class="col-lg-9">
                                                         <div class="form-group">
                                                             <div class="form-control-wrap">
-                                                                <input type="number" autocomplete="off" class="form-control form-control-lg" id="cantidad_pago" name="cantidad_pago" placeholder="Cantidad recibida del cliente" required="">
+                                                                <select class="form-select" data-placeholder="Seleccione el tipo de pago" id="pago" name="pago">
+                                                                    <option value="">-</option>
+                                                                    <option value="0">Efectivo</option>
+                                                                    <option value="1">Transferencia</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <script>
+                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                        const selectPago = document.getElementById('pago');
+                                                        const numReferenciaInput = document.getElementById('num_referencia');
+                                                        const numReferenciaLabel = document.getElementById('label_num_ref')
+                                                        const cantidadPagoInput = document.getElementById('cantidad_pago')
+                                                        const cantidadDevolverInput = document.getElementById('cantidad_devolver');
+                                                        const cantidadPagoLabel = document.getElementById('cantidad_pago_label');
+                                                        const cantidadDevolverLabel = document.getElementById('cantidad_devolver_label');
+
+                                                        numReferenciaInput.hidden = true;
+                                                        numReferenciaLabel.hidden = true;
+                                                        cantidadPagoInput.hidden = true;
+                                                        cantidadPagoLabel.hidden = true;
+                                                        cantidadDevolverInput.hidden = true;
+                                                        cantidadDevolverLabel.hidden = true;
+
+                                                        $('#pago').on('change', function() {
+                                                            const modoPago = $(this).val();
+                                                            if (modoPago === '0') {
+                                                                numReferenciaInput.hidden = true;
+                                                                numReferenciaLabel.hidden = true;
+                                                                cantidadPagoInput.hidden = false;
+                                                                cantidadPagoLabel.hidden = false;
+                                                                cantidadDevolverInput.hidden = false;
+                                                                cantidadDevolverLabel.hidden = false;
+                                                            } else if (modoPago === '1') {
+                                                                numReferenciaInput.hidden = false;
+                                                                numReferenciaLabel.hidden = false;
+                                                                cantidadPagoInput.hidden = true;
+                                                                cantidadPagoLabel.hidden = true;
+                                                                cantidadDevolverInput.hidden = true;
+                                                                cantidadDevolverLabel.hidden = true;
+                                                            } else {
+                                                                numReferenciaInput.hidden = true;
+                                                                numReferenciaLabel.hidden = true;
+                                                                cantidadPagoInput.hidden = true;
+                                                                cantidadPagoLabel.hidden = true;
+                                                                cantidadDevolverInput.hidden = true;
+                                                                cantidadDevolverLabel.hidden = true;
+                                                            }
+                                                        });
+                                                    });
+                                                </script>
+
+                                                <!-- Si es transferencia -->
+
+                                                <div class="row g-3 align-center">
+                                                    <div class="col-lg-3 offset-0">
+                                                        <div class="form-group">
+                                                            <label class="form-label" id="label_num_ref">Numero de referencia</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-9 mb-3">
+                                                        <div class="form-group">
+                                                            <div class="form-control-wrap">
+                                                                <input type="number" autocomplete="off" class="form-control form-control-lg" id="num_referencia" name="num_referencia" placeholder="Ingresa el numero de referencia">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Si es efectivo -->
+
+                                                <div class="row g-3 align-center">
+                                                    <div class="col-lg-3 offset-0">
+                                                        <div class="form-group">
+                                                            <label class="form-label" id="cantidad_pago_label">Cantidad recibida del cliente</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-9 mb-3">
+                                                        <div class="form-group">
+                                                            <div class="form-control-wrap">
+                                                                <input type="number" autocomplete="off" class="form-control form-control-lg" id="cantidad_pago" name="cantidad_pago" placeholder="Cantidad recibida del cliente">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -142,13 +210,13 @@
                                                 <div class="row g-3 align-center">
                                                     <div class="col-lg-3 offset-0">
                                                         <div class="form-group">
-                                                            <label class="form-label">Cantidad a devolver al cliente</label>
+                                                            <label class="form-label" id="cantidad_devolver_label">Cantidad a devolver al cliente</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-7 mb-3">
+                                                    <div class="col-lg-9 mb-3">
                                                         <div class="form-group">
                                                             <div class="form-control-wrap">
-                                                                <input type="number" autocomplete="off" class="form-control form-control-lg" id="cantidad_devolver" name="cantidad_devolver" placeholder="Cantidad a devolver al cliente" required="" readonly>
+                                                                <input type="number" autocomplete="off" class="form-control form-control-lg" id="cantidad_devolver" name="cantidad_devolver" placeholder="Cantidad a devolver al cliente" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -165,7 +233,8 @@
                                                                             <th>Producto vendido</th>
                                                                             <th>Valor Unitario</th>
                                                                             <th>Cantidad</th>
-                                                                            <th class="w-5">Valor Total</th>
+                                                                            <th>Descuento</th>
+                                                                            <th class="w-0">Valor Total</th>
                                                                             <th>Acciones</th>
 
                                                                         </tr>
@@ -233,6 +302,7 @@
                             <div class="form-group">
                                 <div class="form-control-wrap">
                                     <select class="form-select" data-placeholder="Seleccione la categoría" id="categoria" name="categoria">
+                                        <option>Selecciona una categoria</option>
                                         <?php foreach ($categorias as $categoria) { ?>
                                             <option value="<?php echo $categoria->categoria; ?>"><?php echo $categoria->categoria; ?></option>
                                         <?php } ?>
@@ -251,7 +321,9 @@
                             <div class="form-group">
                                 <div class="form-control-wrap">
                                     <select class="form-select" data-placeholder="Seleccione el producto vendido" id="producto_vendido" name="producto_vendido">
+                                        <option>Selecciona un producto</option>
                                         <?php foreach ($productos as $producto) { ?>
+                                            <option>Selecciona un producto</option>
                                             <option value="<?php echo $producto->producto; ?>"><?php echo $producto->producto; ?></option>
                                         <?php } ?>
                                     </select>
@@ -291,6 +363,21 @@
                         </div>
                     </div>
 
+                    <div class="row g-3 align-center">
+                        <div class="col-lg-3 offset-0">
+                            <div class="form-group">
+                                <label class="form-label">Descuento</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 mb-3">
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <input type="number" autocomplete="off" class="form-control form-control-lg" id="descuento" name="descuento" placeholder="Ingrese el valor del descuento">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <button type="button" class="btn btn-lg btn-primary" id="agregarProducto">Agregar Producto a lista</button><br>
                     </div>
@@ -313,7 +400,6 @@
 
 <script>
     $(document).ready(function() {
-        // Manejador para el cambio en el campo de identificación del cliente
         $('#identificacion_cliente').on('change', function() {
             console.log('Evento change disparado');
             var identificacion = $(this).val();
@@ -386,8 +472,9 @@
             var productoVendido = $('#producto_vendido').val();
             var valorUnitario = $('#valor_unitario').val();
             var cantidad = $('#cantidad').val();
+            var descuento = $('#descuento').val();
 
-            if (!categoria || !productoVendido || !valorUnitario || !cantidad) {
+            if (!categoria || !productoVendido || !valorUnitario || !cantidad || !descuento) {
                 alert('Por favor, complete todos los campos.');
                 return;
             }
@@ -396,7 +483,8 @@
                 categoria: categoria,
                 producto_vendido: productoVendido,
                 valor_unitario: valorUnitario,
-                cantidad: cantidad
+                cantidad: cantidad,
+                descuento: descuento
             };
 
             var productos = JSON.parse(localStorage.getItem('productos')) || [];
@@ -410,8 +498,6 @@
         // Función para actualizar la lista de productos en la vista
         function actualizarListaProductos() {
             let productos = JSON.parse(localStorage.getItem('productos')) || [];
-            console.log('Productos desde localStorage:', productos);
-
             let tbody = document.getElementById('productos-body');
             tbody.innerHTML = '';
 
@@ -420,7 +506,15 @@
             productos.forEach((prod) => {
                 let valorUnitario = parseFloat(prod.valor_unitario) || 0;
                 let cantidad = parseInt(prod.cantidad, 10) || 0;
+                let descuentoProducto = parseFloat(prod.descuento) || 0;
+
                 let valorTotal = valorUnitario * cantidad;
+
+                if (descuentoProducto > valorTotal) {
+                    descuentoProducto = valorTotal;
+                }
+
+                valorTotal -= descuentoProducto;
 
                 subtotal += valorTotal;
 
@@ -429,33 +523,25 @@
                     <td>${prod.producto_vendido || 'Producto no disponible'}</td>
                     <td>$${valorUnitario.toFixed(0)}</td>
                     <td>
-                        <button class="btn btn-secondary btn-sm disminuir-cantidad" data-producto="${prod.producto_vendido}">-</button>
-                        <input type="number" class="cantidad-producto" data-producto="${prod.producto_vendido}" value="${cantidad}" readonly />
-                        <button class="btn btn-secondary btn-sm aumentar-cantidad" data-producto="${prod.producto_vendido}">+</button>
+                    <button class="btn btn-secondary btn-sm disminuir-cantidad" data-producto="${prod.producto_vendido}">-</button>
+                    <input type="number" class="cantidad-producto" data-producto="${prod.producto_vendido}" value="${cantidad}" readonly style="text-align: center;">
+                    <button class="btn btn-secondary btn-sm aumentar-cantidad" data-producto="${prod.producto_vendido}">+</button>
                     </td>
+                    <td>$${descuentoProducto.toFixed(0)}</td>
                     <td class="">$${valorTotal.toFixed(0)}</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm eliminar-producto" data-producto="${prod.producto_vendido}">Eliminar</button>
+                    <td colspan="5">
+                    <button class="btn btn-danger btn-sm eliminar-producto" data-producto="${prod.producto_vendido}">Eliminar</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
 
-            let descuento = parseFloat($('#descuento').val()) || 0;
-            let totalConDescuento = subtotal - descuento;
+            let totalConDescuento = subtotal;
 
             let tfoot = document.querySelector('table tfoot');
             tfoot.innerHTML = `
                 <tr>
-                    <td colspan="3">Subtotal</td>
-                    <td>$${subtotal.toFixed(0)}</td>
-                </tr>
-                <tr>
-                    <td colspan="3">Descuento</td>
-                    <td>$${descuento.toFixed(0)}</td>
-                </tr>
-                <tr>
-                    <td colspan="3">Valor Total</td>
+                    <td colspan="5">Valor Total</td>
                     <td>$${totalConDescuento.toFixed(0)}</td>
                 </tr>
             `;
@@ -498,7 +584,7 @@
             if (event.target.classList.contains('disminuir-cantidad')) {
                 let producto = event.target.getAttribute('data-producto');
                 let cantidadInput = document.querySelector(`input[data-producto='${producto}']`);
-                let nuevaCantidad = Math.max(parseInt(cantidadInput.value, 10) - 1, 1); // Evitar cantidades menores a 1
+                let nuevaCantidad = Math.max(parseInt(cantidadInput.value, 10) - 1, 1);
 
                 actualizarCantidadProducto(producto, nuevaCantidad);
             }
@@ -566,10 +652,8 @@
     });
 
     $('#submitForm').click(function() {
-        // Obtener productos del localStorage
         var productos = JSON.parse(localStorage.getItem('productos')) || [];
 
-        // Verificar si hay productos
         if (productos.length === 0) {
             alert('No hay productos en la lista.');
             return;
@@ -581,11 +665,12 @@
         console.log('Valor del campo oculto:', $('#productos_vendidos').val());
 
         // Obtener los valores de los campos del formulario
-        var descuento = $('#descuento').val();
+        var descuento = $('#descuento').val().toFixed(0);
         var nombreCliente = $('#nombre_cliente').val();
         var identificacionCliente = $('#identificacion_cliente').val();
         var correoCliente = $('#correo_cliente').val();
         var valorTotal = $('#valor_total').val();
+        var num_referencia = $('#num_referencia').val();
 
         // Enviar datos mediante AJAX
         $.ajax({
@@ -597,16 +682,20 @@
                 nombre_cliente: nombreCliente,
                 identificacion_cliente: identificacionCliente,
                 correo_cliente: correoCliente,
-                valor_total: valorTotal
+                valor_total: valorTotal,
+                num_referencia: num_referencia
             },
             success: function(response) {
-                // Manejar la respuesta del servidor
                 var res = JSON.parse(response);
                 console.log(data)
                 if (res.success) {
                     alert('Venta registrada exitosamente');
-                    // Limpiar localStorage si la venta fue exitosa
                     localStorage.clear();
+                    location.reload();
+                    setTimeout(function() {
+                        $('formulario').trigger('reset');
+                        document.getElementById('tbody').innerHTML = '';
+                    }, 100);
                 } else {
                     alert('Error al registrar la venta');
                 }

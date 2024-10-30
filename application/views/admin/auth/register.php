@@ -6,7 +6,7 @@
 <body class="nk-body ui-rounder npc-default pg-auth">
     <style>
         .nk-body {
-            background-image: url('<?php echo base_url(); ?>assets/images/fondo_login(5).jpg');
+            background-image: url('<?php echo base_url(); ?>assets/images/fondo_login(5).jpeg');
             background-size: cover;
             background-position: center;
         }
@@ -24,9 +24,10 @@
                                 <img class="logo-light logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo2x.png 2x" alt="logo">
                                 <img class="logo-dark logo-img logo-img-lg" src="<?php echo base_url(); ?>assets/images/logo-dark-small.png" srcset="<?php echo base_url(); ?>assets/images/logo-dark2x.png 2x" alt="logo-dark">
                             </a>
-                            <p>Servicios <br>Tecnologicos</p>
+
                             <img src="<?php echo base_url() ?>assets/images/line.png" class="lineaLogoIcon">
-                            <p>Tecnoparque <br>Nodo Neiva</p>
+                            <p>Servicios <br>Tecnologicos</p>
+
                             <style>
                                 .logo-img-lg {
                                     max-width: 100px !important;
@@ -55,11 +56,11 @@
                                 }
 
                                 .logo-organizacion p {
-                                    font-size: 16px;
+                                    font-size: 24px;
                                     font-family: Nunito, sans-serif;
                                     font-weight: bold !important;
                                     line-height: normal;
-                                    color: black !important;
+                                    color: white !important;
                                     font-weight: 900 !important;
                                 }
 
@@ -166,53 +167,55 @@
                                 <div class="text-center pt-4 pb-3">
                                     <h6 class="overline-title overline-title-sap"><span>O</span></h6>
                                 </div>
-                                <ul class="nav justify-space-be gx-4">
-                                    <!-- <li class="nav-item"><a class="nav-link" href="https://industriaempresayservicios.blogspot.com/p/servicios-tecnologicos.html">Servicios Tecnologicos</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="https://sena.edu.co/es-co/Paginas/default.aspx">SENA comunica</a></li> -->
-                                    <img class="logo_ost" src="<?php echo base_url(); ?>assets/images/Icono OST.png">
-                                    <a href="#" class="btn btn-lg" target="_blank">
-                                    <i class="bi bi-facebook facebook-icon"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-lg" target="_blank">
-                                    <i class="bi bi-youtube youtube-icon"></i>
-                                    </a>
-                        
-                                    <img class="logo_sena" src="<?php echo base_url(); ?>assets/images/logo.png">
-                                    <style>
-                                        .nav-item {
-                                            font-weight: bolder !important;
-                                        }
-
-                                        .logo_ost {
-                                            max-width: 100px;
-                                            height: 50px;
-                                            margin-top: 20px;
-                                          
-                                        }
-                                        .logo_sena{
-                                            max-width: 160px;
-                                            height: 90px;
-                                            margin-top: -2px;
-                                        }
-                                        @media (max-width: 582px) {
-                                            .logo_ost{
-                                                margin-top: 5px;
+                                <ul class="nav justify-space-be gx-3">
+                                    <li class="nav-item"><a class="nav-link text-center mt-3" href="https://industriaempresayservicios.blogspot.com/p/servicios-tecnologicos.html" style="color: white; font-size:14px">Servicios <br>Tecnologicos</a></li>
+                                    <a href="http://industriaempresayservicios.blogspot.com/" target="_blank">
+                                        <a href="#" class="btn btn-lg" target="_blank">
+                                            <i class="bi bi-facebook facebook-icon"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-lg" target="_blank">
+                                            <i class="bi bi-youtube youtube-icon"></i>
+                                        </a>
+                                        <a href="https://www.sena.edu.co/es-co/Paginas/default.aspx" target="_blank">
+                                            <img class="logo_sena" src="<?php echo base_url(); ?>assets/images/logo.png"></a>
+                                        <style>
+                                            .nav-item {
+                                                font-weight: bolder !important;
                                             }
-                                        }
-                                    </style>
+
+                                            .logo_ost {
+                                                max-width: 100px;
+                                                height: 50px;
+                                                margin-top: 20px;
+
+                                            }
+
+                                            .logo_sena {
+                                                max-width: 160px;
+                                                height: 90px;
+                                                margin-top: -2px;
+                                            }
+
+                                            @media (max-width: 582px) {
+                                                .logo_ost {
+                                                    margin-top: 5px;
+                                                }
+                                            }
+                                        </style>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <style>
-                        .facebook-icon, 
+                        .facebook-icon,
                         .youtube-icon,
                         .pagina-icon,
                         .whatsapp-icon {
                             color: white !important;
                             font-size: 2.5rem;
                         }
-                        .gx-4{
+
+                        .gx-4 {
                             margin-left: 1.3rem !important;
                         }
                     </style>

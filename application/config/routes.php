@@ -82,11 +82,19 @@ $route['admin/email-settings']['GET']     = 'email_controller';
 
 // Inventario 
 $route['admin/inventario']['GET']             = 'inventario_controller/inventario'; 
+$route['admin/inventario-comercio']['GET']             = 'inventario__comercio_controller/inventario';
 $route['admin/inventario/create']['GET']      = 'inventario_controller/create';    
 $route['admin/inventario/create']['POST']     = 'inventario_controller/create';     
 $route['admin/inventario/edit/(:num)']['GET'] = 'inventario_controller/edit/$id'; 
 $route['admin/inventario/edit/(:num)']['POST'] = 'inventario_controller/edit/$id';  
 $route['admin/inventario/delete/(:num)']['POST'] = 'inventario_controller/delete/$id';
+
+$route['admin/inventario/create']['GET']      = 'inventario_comercio_controller/create';    
+$route['admin/inventario/create']['POST']     = 'inventario_comercio_controller/create';     
+$route['admin/inventario/edit/(:num)']['GET'] = 'inventario_comercio_controller/edit/$id'; 
+$route['admin/inventario/edit/(:num)']['POST'] = 'inventario_comercio_controller/edit/$id';  
+$route['admin/inventario/delete/(:num)']['POST'] = 'inventario_comercio_controller/delete/$id';
+
 
 
 
@@ -96,8 +104,12 @@ $route['admin/ventas-add/get_productos_por_categoria']['GET'] = 'ventas_controll
 $route['admin/registrar']['POST'] = 'ventas_register_controller/registerVenta';
 $route['admin/ventas/delete/(:any)']['POST'] = 'ventas_register_controller/delete/$1';
 $route['admin/ventas-detalles/(:any)']['GET'] = 'ventas_register_controller/detalle_venta/$1';
+$route['admin/imprimir-factura/(:any)']['GET'] = 'ventas_register_controller/imprimir_factura/$1';
 $route['admin/ventas/ventasFiltro']['GET'] = 'ventas_controller/ventasFiltro';
 
+$route['admin/entrega_turno']['GET']           = 'entrega_controller/vista_entrega_turno';
+$route['entrega/entregar_turno'] = 'entrega_controller/entregar_turno';
+$route['admin/historial_turnos']['GET']           = 'entrega_controller/listar_historico';
 
 
 $route['admin/clientes-add']['GET']           = 'clientes_controller/clientes';

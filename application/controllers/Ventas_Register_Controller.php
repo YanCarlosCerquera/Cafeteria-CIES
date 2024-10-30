@@ -10,6 +10,7 @@ class Ventas_Register_Controller extends Core_Controller
         $this->load->model('Settings_Model');
         $this->load->model('Ventas_model');
         $this->load->model('Users_model');
+        $this->load->helper('custom_helper');
     }
 
     public function detalle_venta($id)
@@ -22,35 +23,32 @@ class Ventas_Register_Controller extends Core_Controller
         $this->load->view('admin/detalle_venta', $data);
     }
 
-    public function get_current_user_id()
+    public function get_current_user_username()
     {
-        return $this->session->userdata('user_id');
+        $user_id = $this->session->userdata('user_id');
+        $this->load->model('Users_model');
+        $user = $this->Users_model->get_user_by_id($user_id);
+        return $user->username;
     }
 
     public function registerVenta()
-    {   
-        $vendedor_id = $this->get_current_user_id();
-
-        // Obtener el JSON de productos vendidos
+    {
+        $vendedor_username = $this->Users_model->get_user_username();
         $productosJson = $this->input->post('productos_vendidos');
         $productosVendidos = array();
 
-        // Verificar si $productosJson no está vacío y es un JSON válido
         if ($productosJson && is_string($productosJson)) {
-            $productos = json_decode($productosJson, true); // Decodificar los productos enviados desde el formulario
+            $productos = json_decode($productosJson, true); 
 
-            // Verificar si $productos es un array y no está vacío
             if (is_array($productos) && !empty($productos)) {
                 foreach ($productos as $producto) {
-                    // Asegurarse de que los campos necesarios estén presentes
+
                     if (isset($producto['producto_vendido']) && isset($producto['valor_unitario']) && isset($producto['cantidad'])) {
                         $valorUnitario = (float)$producto['valor_unitario'];
                         $cantidad = (int)$producto['cantidad'];
 
-                        // Calcular el subtotal para cada producto
                         $subtotal = $valorUnitario * $cantidad;
 
-                        // Agregar el producto al array de productos vendidos
                         $productosVendidos[] = array(
                             'producto' => $producto['producto_vendido'],
                             'valor_unitario' => $valorUnitario,
@@ -62,24 +60,24 @@ class Ventas_Register_Controller extends Core_Controller
             }
         }
 
-
-        // Obtener y validar otros datos del formulario
         $descuento = (float)$this->input->post('descuento');
         $valorTotal = (float)$this->input->post('valor_total');
-        $valorTotal = max($valorTotal, 0); // Evitar valores negativos
+        $valorTotal = max($valorTotal, 0); 
         $nombreCliente = $this->input->post('nombre_cliente');
         $identificacionCliente = $this->input->post('identificacion_cliente');
         $correoCliente = $this->input->post('correo_cliente');
+        $num_referencia = $this->input->post('num_referencia');
 
         // Preparar los datos para guardar
         $data = array(
-            'productos_vendidos' => json_encode($productosVendidos), // Guardar JSON en la base de datos
+            'productos_vendidos' => json_encode($productosVendidos), 
             'descuento' => $descuento,
             'valor_total' => $valorTotal,
             'nombre_cliente' => $nombreCliente,
             'identificacion_cliente' => $identificacionCliente,
             'correo_cliente' => $correoCliente,
-            'vendedor_id' => $vendedor_id,
+            'vendedor_username' =>  $vendedor_username,
+            'num_referencia' => $num_referencia,
             'created' => date('Y-m-d H:i:s')
         );
 
@@ -97,7 +95,6 @@ class Ventas_Register_Controller extends Core_Controller
 
     public function change_venta_post()
     {
-        //check if admin
         if (!is_admin()) {
             redirect(base_url());
         }
@@ -109,13 +106,13 @@ class Ventas_Register_Controller extends Core_Controller
             'descuento' => $this->input->post('descuento'),
             'cantidad' => $this->input->post('cantidad'),
             'valor_total' => $this->input->post('valor_total'),
+            'num_referencia' => $this->input->post('num_referencia')
         );
 
         $id = $this->input->post('venta_id', true);
 
         $venta = $this->Ventas_Register_Model->get_venta($id);
 
-        //check if exists
         if (empty($venta)) {
             redirect($this->agent->referrer());
         } else {
@@ -133,9 +130,8 @@ class Ventas_Register_Controller extends Core_Controller
 
     public function delete($id)
     {
-        // Verificar si se recibió un ID válido
+
         if ($id) {
-            // Llamar al método delete del modelo
             $result = $this->Ventas_Register_Model->delete($id);
 
             // Enviar una respuesta JSON según el resultado de la eliminación
@@ -180,5 +176,15 @@ class Ventas_Register_Controller extends Core_Controller
         $this->load->view("admin/includes/_header", $data);
         $this->load->view("admin/includes/_sidebar", $data);
         $this->load->view('admin/ventas', $data);
+    }
+
+    public function imprimir_factura($id)
+    {
+        $data['title'] = "Detalle de venta";
+        $data['application_name'] = $this->settings->application_name;
+        $data['description'] = $this->settings->site_description;
+        $data['keywords'] = $this->settings->keywords;
+        $data['detalle_venta'] = $this->Ventas_Register_Model->get_by_id($id);
+        $this->load->view('admin/imprimir_factura', $data);
     }
 }

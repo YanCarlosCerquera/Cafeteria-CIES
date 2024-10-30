@@ -24,14 +24,14 @@
                                             <h3 class="nk-block-title page-title">Usuario | <strong class="text-primary small"><?php echo $this->session->userdata("fullname") ?></strong></h3>
                                             <div class="nk-block-des text-soft">
                                                 <ul class="list-inline">
-                                                    <li>Username: <span class="text-base"><?php echo $user->username ?></span></li>
+                                                    <li>Nombre de usuario: <span class="text-base"><?php echo $user->username ?></span></li>
                                                     <li>Ultima conexión: <span class="text-base"><?php echo $user->last_seen ?></span></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="nk-block-head-content">
-                                            <a href="<?php echo base_url() ?>admin/dashboard" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
-                                            <a href="<?php echo base_url() ?>admin/dashboard" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
+                                            <a href="<?php echo base_url() ?>admin/inicio" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Regresar</span></a>
+                                            <a href="<?php echo base_url() ?>admin/inicio" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                                                 <div class="profile-ud-list">
                                                                     <div class="profile-ud-item">
                                                                         <div class="profile-ud wider">
-                                                                            <span class="profile-ud-label">Username:</span>
+                                                                            <span class="profile-ud-label">Nombre de usuario:</span>
                                                                             <span class="profile-ud-value"><?php echo $user->username ?></span>
                                                                         </div>
                                                                     </div>
@@ -146,8 +146,8 @@
                                                                     <div class="row g-3 align-center">
                                                                         <div class="col-lg-3 offset-0">
                                                                             <div class="form-group">
-                                                                                <label class="form-label">Username (MQTT)</label>
-                                                                                <span class="form-note">Usuario para la conexión MQTT</span>
+                                                                                <label class="form-label">Nombre de usuario</label>
+                                                                                <span class="form-note">Nombre de usuario en la aplicación</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-7 mb-3">

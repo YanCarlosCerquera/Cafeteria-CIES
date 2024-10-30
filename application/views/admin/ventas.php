@@ -84,7 +84,6 @@
                                     <table class="datatable-init-export nowrap table" data-export-title="Export">
                                         <thead>
                                             <tr>
-                                                <th>Codigo</th>
                                                 <th>Producto Vendido</th>
                                                 <th>Valor Unitario</th>
                                                 <th>Cantidad</th>
@@ -92,8 +91,8 @@
                                                 <th>Descuento</th>
                                                 <th>Fecha de venta</th>
                                                 <th>Vendedor</th>
-                                               
-
+                                                <th>Num. Referencia</th>
+                                                <th>Imprimir</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -104,14 +103,16 @@
                                                     foreach ($productos_vendidos as $producto) {
                                                 ?>
                                                         <tr>
-                                                            <td><?php echo $venta->id; ?></td>
                                                             <td><?php echo $producto['producto']; ?></td>
-                                                            <td><?php echo $producto['valor_unitario']; ?></td>
+                                                            <td>$<?php echo $producto['valor_unitario']; ?></td>
                                                             <td><?php echo $producto['cantidad']; ?></td>
-                                                            <td><?php echo $producto['subtotal']; ?></td>
-                                                            <td><?php echo $venta->descuento; ?></td>
+                                                            <td>$<?php echo $producto['subtotal']; ?></td>
+                                                            <td>$<?php echo number_format($venta->descuento, 0); ?></td>
                                                             <td><?php echo $venta->created; ?></td>
-                                                            <td><?php echo $this->Users_model->get_user_username($venta->vendedor_id); ?></td>
+                                                            <td><?php echo $venta->vendedor_username; ?></td>
+                                                            <td><?php echo empty($venta->num_referencia) ? 'Efectivo' : $venta->num_referencia; ?></td>
+                                                            <td> <a class="btn btn-icon btn-lg btn-white btn-dim btn-outline-primary" href="<?php echo base_url(); ?>admin/ventas-detalles/<?php echo $venta->id; ?>" target="_blank"><em class="icon ni ni-printer-fill"></em></a></td>
+
                                                         </tr>
                                                 <?php
                                                     }

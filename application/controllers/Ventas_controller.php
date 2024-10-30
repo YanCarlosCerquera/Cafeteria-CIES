@@ -12,9 +12,26 @@ class Ventas_controller extends Core_Controller
         }
         $this->load->model('Ventas_model');
         $this->load->model('Ventas_Register_Model');
+        $this->load->model('Users_model');
     }
 
-  
+
+    public function get_current_user_username()
+    {
+        $user_id = $this->session->userdata('user_id');
+        log_message('debug', 'ID de usuario: ' . $user_id);
+        
+        $this->load->model('Users_model');
+        $user = $this->Users_model->get_user_by_id($user_id);
+        
+        if ($user == null) {
+            log_message('error', 'No se encontró el usuario con ID ' . $user_id);
+            return null;
+        }
+        
+        log_message('debug', 'Usuario encontrado: ' . $user->username);
+        return $user->username;
+    }
 
 
     public function get_categoria()
@@ -32,6 +49,7 @@ class Ventas_controller extends Core_Controller
         $data['description'] = $this->settings->site_description;
         $data['keywords'] = $this->settings->keywords;
         $data['categorias'] = $this->Ventas_model->get_categorias();
+        $data['vendedor_username'] = $this->get_current_user_username();
         $data['productos_por_categoria'] = array();
 
         $this->load->view("admin/ventas_add", $data);
@@ -64,6 +82,4 @@ class Ventas_controller extends Core_Controller
         }
         return $productos;
     }
-
-   
 }

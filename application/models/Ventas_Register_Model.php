@@ -87,6 +87,16 @@ class Ventas_Register_Model extends CI_Model
         return $ventas;
     }
 
+
+    public function ventas_vendedor_dia($vendedor_username) {
+        $this->db->select('*');
+        $this->db->from('ventas_registradas');
+        $this->db->where('vendedor_username', $vendedor_username);
+        $this->db->where('DATE(created)', date('Y-m-d'));
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     // Eliminar
     public function delete($id)
     {

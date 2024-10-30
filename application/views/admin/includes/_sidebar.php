@@ -59,7 +59,7 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
     <div class="nk-sidebar-main is-light">
         <div class="nk-sidebar-inner" data-simplebar>
             <div class="nk-menu-content" data-content="navDashboard">
-                <h5 class="title">Cafeteria CIES</h5>
+                <h5 class="title">Cafeteria CIES / Comercio</h5>
                 <ul class="nk-menu">
                     <!-- Vista inicio -->
                     <li class="nk-menu-item active current-page">
@@ -116,6 +116,14 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
                             <span class="nk-menu-text">Entrega de turno</span>
                         </a>
                     </li><!-- .nk-menu-item -->
+                    <?php if ($this->session->userdata("is_superuser") === "1") : ?>
+                    <li class="nk-menu-item active current-page">
+                        <a href="<?php echo base_url() ?>admin/historial_turnos" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-table-view"></em></span>
+                            <span class="nk-menu-text">Historico de turnos</span>
+                        </a>
+                    </li><!-- .nk-menu-item -->
+                    <?php endif; ?>
 
                     <li class="nk-menu-item has-sub">
                     <li class="nk-menu-item">
